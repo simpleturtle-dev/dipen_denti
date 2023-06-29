@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+
+
+
+
+<head>
+
+    <title> PORTALE </title>
+    <link rel="stylesheet" href="styles/indexstyle.css">
+
+</head>
+
+    <body>
+
+        
+        <header>
+
+            <div class="header" id="header">
+                <img class="header-logo" src="imgs/DIPEN-DENTI-LOGO.png" alt="">
+            </div>
+
+        </header>
+        
+        <!-- <div class="container" id="container">
+            <img class="phrase-logo" src="imgs/DIPEN-DENTI-LOGO-PHRASE.png" alt="">
+            <img class="complete-logo" src="imgs/DIPEN-DENTI-LOGO.png" alt="">
+        </div> -->
+
+
+        <script>
+
+            window.onload = function() {
+                removeLogoLayer();
+            };
+
+            function removeLogoLayer() {
+                setTimeout(() => { 
+                    const element = document.getElementById("container");
+                    element.remove();
+                }, 2800);
+              
+            }
+            </script>
+
+
+    </body>
+
+
+
+</html>
