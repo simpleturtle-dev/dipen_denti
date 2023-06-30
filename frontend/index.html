@@ -8,40 +8,103 @@
 
     <title> PORTALE </title>
     <link rel="stylesheet" href="styles/indexstyle.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
 
-    <body>
-
+    <body id="body" onload="checkCookie()">
         
-        <header>
+        <main>
 
-            <div class="header" id="header">
-                <img class="header-logo" src="imgs/DIPEN-DENTI-LOGO.png" alt="">
-            </div>
+            <header>
+                <img src="imgs/DIPEN-DENTI-LOGO.png" class="logo-banner" alt="">
+                
+                <input type="text" placeholder="Cerca Dipendente.." class="searchbar">
+                 <img src="imgs/search-svgrepo-com.svg" class="lens" alt="">
+                
 
-        </header>
-        
-        <!-- <div class="container" id="container">
-            <img class="phrase-logo" src="imgs/DIPEN-DENTI-LOGO-PHRASE.png" alt="">
-            <img class="complete-logo" src="imgs/DIPEN-DENTI-LOGO.png" alt="">
-        </div> -->
+                <img src="imgs/sun-star-1268-svgrepo-com.svg" class="sun transparent" id="sun" alt="">
+                
+                <label class="switch">
+                    <input type="checkbox" id="darkTheme" onchange = "toggleDarkTheme()">
+                    <span class="slider round"></span>
+                </label> 
+                
+                <img src="imgs/moon-svgrepo-com.svg" class="moon" id="moon" alt="">
 
+
+            </header>
+
+
+            <content>
+                CONTENT
+            </content>
+
+
+            <footer>
+                FOOTER
+            </footer>
+            
+        </main>
 
         <script>
 
-            window.onload = function() {
-                removeLogoLayer();
+            function toggleDarkTheme(){
+
+                
+                var element = document.getElementById("body");
+                element.classList.toggle("dark");
+                
+                var element = document.getElementById("moon");
+                element.classList.toggle("transparent");
+                
+                var element = document.getElementById("sun");
+                element.classList.toggle("transparent");
+                
+                let dark = getCookie("dark");
+                if ( dark == "false"){
+                    setCookie("dark", "true", 30);
+                } else {
+                    setCookie("dark", "false", 30);
+                }
             };
 
-            function removeLogoLayer() {
-                setTimeout(() => { 
-                    const element = document.getElementById("container");
-                    element.remove();
-                }, 2800);
-              
+            function setCookie(cname,cvalue,exdays) {
+                const d = new Date();
+                d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                let expires = "expires=" + d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
             }
-            </script>
+
+            function getCookie(cname) {
+                let name = cname + "=";
+                let decodedCookie = decodeURIComponent(document.cookie);
+                let ca = decodedCookie.split(';');
+                for(let i = 0; i < ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+
+             function checkCookie() {
+                let dark = getCookie("dark");
+                if (dark != "true") {
+                    setCookie("dark", "false", 30);
+                } else {
+                    toggleDarkTheme();
+                    if (dark != "" && dark != null) {
+                        setCookie("dark", "true", 30);
+                    }
+
+                }
+            }
+    </script>
 
 
     </body>

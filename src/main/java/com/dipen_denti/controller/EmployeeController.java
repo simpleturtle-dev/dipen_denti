@@ -114,7 +114,7 @@ public class EmployeeController {
                 "\t\"name\": \"name\",\n" +
                 "\t\"surname\": \"surname\",\n" + 
                 "\t\"taxCode\": \"NNNSSS12X12X\",\n" +
-                "\t\"birth\": \"YYYY-dd-MMT00:00:00Z\",\n" +
+                "\t\"birth\": \"YYYY-dd-MM\",\n" +
                 "\t\"role\": \"STAGISTA|DIPENDENTE|MANAGER|DIRETTORE\",\n" +
                 "\t\"salary\": 0.00,\n" +
                 "\t\"contract\": \"INDETERMINATO|DETERMINATO|STAGE|PARTTIME\",\n" +

@@ -7,70 +7,191 @@ body{
     margin: 0;
     padding: 0;
 
-    height: 100vh;
-    width: 100vw;
+    --tiles-background: rgb(228, 228, 228);
+
 }
 
-@keyframes phase-out {
-    0%   {opacity: 1;}
-    40%  {opacity: 1;}
-    100% {opacity: 0;}
+body.dark{
+
+    background-color: #1e1e1e;
+    color:white;
+
+    --tiles-background: rgb(53, 54, 58);
 }
 
+@keyframes drop-in-from-below {
+    0%   {top:150px; opacity: 0;}
+    100% {top:0px; opacity: 1;}
+}
 
-.container {
-    background-color: rgb(243, 184, 82);
-    height: 100vh;
-    width: 100vw;
+main{
     position: relative;
-    animation-name: phase-out;
-    animation-duration: 3.2s;
-    opacity: 0;
-    z-index:10;
-  }
+    text-align: center;
 
-.phrase-logo {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width:50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    display:grid;
+
+    font-size:22px;
+
+    grid-template-areas:
+        "side   topbar  sidebar"
+        "side   content sidebar"
+        "footer footer  footer";
+
+    grid-template-rows: 150px auto 350px;
+
+    align-items: center;
+    justify-items: center;
+
+    /* row-gap: 30px; */
+
+    animation: drop-in-from-below 0.9s;
+}
+
+header{
+    grid-area: topbar;
+    text-align: left;
+    background-color: rgb(243, 184, 82);
+
+    width:100%;
+    height: 70%;
+
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+
+.logo-banner{
+    position: relative;
+    left: -4px;
+    width:105px;
+    border-radius: 50%;
+}
+
+.searchbar{
+
+    position: relative;
+    bottom:45px;
+    left:15%;
+    width:800px;
+    height: 40px;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    padding-left: 20px;
+    font-size: 20px;
+    border: 1px solid rgb(153, 153, 153);
+    max-width: 50%;
+    min-width: 50%;
+}
+
+.lens{
+    position: relative;
+    bottom:33px;
+    width:20px;
+    background-color: white;
+    padding:9px;
+    left: 9%;
+    border-radius: 40%;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  bottom:50px;
+  left:17%;
     
 }
+  
 
-.complete-logo {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width:50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    animation-name: phase-out;
-    animation-duration: 1.6s;
-    opacity: 0;
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+  
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+  
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+  
+input:checked + .slider {
+  background-color: #003967;
+}
+  
+input:focus + .slider {
+  box-shadow: 0 0 1px #003967;
+}
+  
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+  
+.slider.round {
+  border-radius: 34px;
+}
+  
+.slider.round:before {
+  border-radius: 50%;
 }
 
-
-
-.header{
-
-    position: fixed;
-    z-index: 9;
-
-    width: 100vw;
-    height:12%;
-    margin:0;
-    padding:0;
-
-    background-color: rgb(243, 184, 82);
+.moon, .sun{
+  position: relative;
+  width:40px;
+  bottom:35px;
+  transition: 300ms;
 }
 
-.header-logo{
-    position: relative;
-    height:100%;
-    float: right;
-    right:2%;
+.moon{ left:17.5%; }
+.sun{ left: 16.5%; }
+.moon.transparent { opacity: 0;}
+.sun.transparent { opacity: 0;}
+
+content{
+    grid-area: content;
+    text-align: left;
+    width:100%;
+    height: 1200px;
+    background-color: var(--tiles-background);
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+
+footer{
+    width: 95vw;
+    grid-area: footer;
+    height: 250px;
+    background-color: #003967;
+    /* margin-top: 100px; */
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    color: white;
 }
