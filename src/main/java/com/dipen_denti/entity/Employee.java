@@ -38,10 +38,10 @@ public class Employee {
     @Column ( length = 10, nullable = false )
     String role;
 
-    @Column ( length = 8, nullable = false )
+    @Column ( length = 15, nullable = false )
     float salary;
 
-    @Column ( length = 18, nullable = false )
+    @Column ( length = 13, nullable = false )
     String contract;
 
     @ElementCollection( targetClass = String.class, fetch = FetchType.EAGER )

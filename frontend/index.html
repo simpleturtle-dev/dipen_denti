@@ -12,14 +12,14 @@
 
 </head>
 
-    <body id="body" onload="checkCookie()">
+    <body id="body" onload="resetPage()">
         
         <main>
 
             <header>
                 <img src="imgs/DIPEN-DENTI-LOGO.png" class="logo-banner" alt="">
                 
-                <input type="text" placeholder="Cerca Dipendente.." class="searchbar">
+                <input type="text" placeholder="Cerca.." class="searchbar">
                  <img src="imgs/search-svgrepo-com.svg" class="lens" alt="">
                 
 
@@ -37,28 +37,98 @@
 
 
             <content>
-                CONTENT
+
+                <div class="buttons-container">
+                    <button class="read-button" disabled id="read-button" onclick="pressReadButton()">LEGGI</button>
+                    <button class="create-button" id="create-button" onclick="pressCreateButton()">CREA</button>
+                </div>
+
+                <div class="interface-container">
+
+                    <span class="table" id="table"> TABELLA </span>
+
+                    <div class="create-interface" id ="create">
+
+                        <input form="text" id="name" class="input-form" placeholder="Nome" maxlength="18">
+
+                        <input form="text" id="surname" class="input-form" placeholder="Cognome" maxlength="18">
+
+                        <input form="text" id="taxCode" class="input-form" placeholder="Codice Fiscale" maxlength="16">
+
+                        <br>Data di nascita
+                        <input form="text" type="date"id="birth" class="input-form">
+                        <input form="text" id="salary" class="input-form" placeholder="RAL" maxlength="15">
+
+                        <br><br><br><br>
+                        <div id="radio-one">
+                            <input type="radio" id="STAGISTA" name="role" value="STAGISTA">
+                                <label class="radios one" for="STAGISTA"><span class="text-in-radios">STAGISTA</span></label>
+                            <input type="radio" id="DIPENDENTE" name="role" value="DIPENDENTE">
+                                <label class="radios two" for="DIPENDENTE"><span class="text-in-radios">DIPENDENTE</span></label>
+                            <input type="radio" id="MANAGER" name="role" value="MANAGER">
+                                <label class="radios three" for="MANAGER"><span class="text-in-radios">MANAGER</span></label>
+                            <input type="radio" id="DIRETTORE" name="role" value="DIRETTORE">
+                                <label class="radios four" for="DIRETTORE"><span class="text-in-radios">DIRETTORE</span></label>
+                        </div>
+                        <br><br><br><br>
+                        <div id="radio-two">
+                            <input type="radio" id="STAGE" name="contract" value="STAGE" class="contract">
+                                <label class="radion one" for="STAGE"><span class="text-in-radios">STAGE</span></label>
+                            <input type="radio" id="PARTTIME" name="contract" value="PARTTIME">
+                                <label class="radion two" for="PARTTIME"><span class="text-in-radios">PART TIME</span></label>
+                            <input type="radio" id="DETERMINATO" name="contract" value="DETERMINATO">
+                                <label class="radion three" for="DETERMINATO"><span class="text-in-radios">DETERMINATO</span></label>
+                            <input type="radio" id="INDETERMINATO" name="contract" value="INDETERMINATO">
+                                <label class="radion four"for="INDETERMINATO"><span class="text-in-radios">INDETERMINATO</span></label>
+                        </div>
+
+                        <br><br><br><br>
+                        <div id="checkboxes">
+                            <input type="checkbox" name="ENGLISH" value="Conosce l'inglese" id="ENGLISH"/>
+                            <label class="check one" for="ENGLISH"><span class="text-in-check">CONOSCE L'INGLESE</span></label>
+                            <input type="checkbox" name="PATENT" value="Patente B" id="PATENT" />
+                            <label class="check two" for="PATENT"><span class="text-in-check">PATENTE B</span></label>
+                            <input type="checkbox" name="EXPTEN" value="Esperienza Decennale" id="EXPTEN" />
+                            <label class="check three" for="EXPTEN"><span class="text-in-check">ESPERIENZA DECENNALE</span></label>
+                        </div>
+                        <br><br><br><br><br><br>
+                        <br><br><br>
+                        <!-- Indicates a successful or positive action -->
+		<button type="button" class="btn btn-success btn-lg btn3d"><span class="glyphicon glyphicon-ok"></span> CREA</button>
+                    </div>
+                </div>
             </content>
 
 
             <footer>
+
                 <div class="tech-support">
-                    <!-- 800 800 8888 -->
+                    <span class="description"> Supporto tecnico <br> 800 800 8888 </span>
                     <img src="imgs/phone-svgrepo-com.svg" class="phone" alt="">
                 </div>
+
                 <div class="team-leader">
-                    
+                    <span class="description"> Mail <br> leader@mail.it </span>
                     <img src="imgs/person-svgrepo-com.svg" class="leader" alt="">
                 </div>
+
                 <div class="about">
-                    
+                    <span class="description"> Creatore sito <br> Riccardo Donaddio </span>
                     <img src="imgs/info-circle-svgrepo-com.svg" class="info" alt="">
                 </div>
+                 
             </footer>
             
         </main>
 
         <script>
+
+            function resetPage(){
+
+                checkCookie();
+
+                pressReadButton();
+            }
 
             function toggleDarkTheme(){
 
@@ -79,6 +149,40 @@
                     setCookie("dark", "false", 30);
                 }
             };
+
+
+            function pressCreateButton(){
+
+                var element = document.getElementById("create-button");
+                element.disabled = true;
+
+                var element = document.getElementById("read-button");
+                element.disabled = false;
+
+                makeDisappear("table", "create");
+
+            }
+
+
+            function pressReadButton(){
+
+                var element = document.getElementById("read-button");
+                element.disabled = true;
+
+                var element = document.getElementById("create-button");
+                element.disabled = false;
+
+                makeDisappear("create", "table");
+
+            }
+
+            function makeDisappear(span, otherSpan) {
+                var x = document.getElementById(span); 
+                x.style.display = "none";
+
+                var x = document.getElementById(otherSpan); 
+                x.style.display = "block";
+            }
 
             function setCookie(cname,cvalue,exdays) {
                 const d = new Date();
