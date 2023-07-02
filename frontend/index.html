@@ -257,8 +257,8 @@
 
                     xhr.send(data);
 
-                    alert (data)
-
+                    alert("Richiesta inviata")
+                    alert(xhr.responseText);
             }
 
             function displayRadioValue(name) {
@@ -286,6 +286,10 @@
                     if (ele.checked)
                         result = result = "\t\tEsperienza decennale\n"
                 
+            }
+
+            function delay(time) {
+                return new Promise(resolve => setTimeout(resolve, time));
             }
 
     </script>
