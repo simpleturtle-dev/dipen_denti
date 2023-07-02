@@ -17,11 +17,7 @@
         <main>
 
             <header>
-                <img src="imgs/DIPEN-DENTI-LOGO.png" class="logo-banner" alt="">
-                
-                <input type="text" placeholder="Cerca.." class="searchbar">
-                 <img src="imgs/search-svgrepo-com.svg" class="lens" alt="">
-                
+                <img src="imgs/DIPEN-DENTI-LOGO.png" class="logo-banner" alt="">            
 
                 <img src="imgs/sun-star-1268-svgrepo-com.svg" class="sun transparent" id="sun" alt="">
                 
@@ -41,6 +37,7 @@
                 <div class="buttons-container">
                     <button class="read-button" disabled id="read-button" onclick="pressReadButton()">LEGGI</button>
                     <button class="create-button" id="create-button" onclick="pressCreateButton()">CREA</button>
+                    <button class="over-thirty-button" id="over-thirty-button" onclick="overThirthyButton()">>30k</button>
                 </div>
 
                 <div class="interface-container">
@@ -48,6 +45,25 @@
                     <div class="employee-table" id="employee-table">
 
                         <table id="employees">
+                            <tr>
+                              <th>NOME</th>
+                              <th>COGNOME</th>
+                              <th>CODICE FISCALE</th>
+                              <th>DATA DI NASCITA</th>
+                              <th>RUOLO</th>
+                              <th>RAL</th>
+                              <th>CONTRATTO</th>
+                              <th>COMPETENZE</th>
+                              <th>AGGIORNA</th>
+                              <th>CANCELLA</th>
+                            </tr>
+                          </table>
+
+                    </div>
+
+                    <div class="employee-table-over-30k" id="employee-table-over-30k">
+
+                        <table id="employees-30k">
                             <tr>
                               <th>NOME</th>
                               <th>COGNOME</th>
@@ -115,6 +131,58 @@
                             <button type="Submit" value="Submit" class="btn btn-success btn-lg btn3d"><span class="glyphicon glyphicon-ok"></span> CREA</button>
                         </div>
                     </form>
+
+                    <form id="employee-form" method="post" onsubmit="return updateEmployee()">
+                        <div class="update-interface" id ="update">
+
+                            <input required form="text" name="name" id="nameU" class="input-form" placeholder="Nome" maxlength="18">
+
+                            <input required form="text" name="surname" id="surnameU" class="input-form" placeholder="Cognome" maxlength="18">
+
+                            <input required form="text" disabled name="taxCode" id="taxCodeU" class="input-form" placeholder="Codice Fiscale" maxlength="16">
+
+                            <br>Data di nascita
+                            <input required form="text" name="birth" type="date" id="birthU" class="input-form">
+                            <input required form="text" name="salary" id="salaryU" class="input-form" placeholder="RAL" maxlength="15">
+
+                            <br><br><br><br>
+                            <div id="radio-one">
+                                <input required type="radio" id="STAGISTAU" name="roleU" value="STAGISTA" onchange="disableRestU()">
+                                    <label class="radios one" for="STAGISTAU"><span class="text-in-radios">STAGISTA</span></label>
+                                <input required type="radio" id="DIPENDENTEU" name="roleU" value="DIPENDENTE" onchange="enableAllButStageU()"> 
+                                    <label class="radios two" for="DIPENDENTEU"><span class="text-in-radios">DIPENDENTE</span></label>
+                                <input required type="radio" id="MANAGERU" name="roleU" value="MANAGER" onchange="enableAllButStageU()">
+                                    <label class="radios three" for="MANAGERU"><span class="text-in-radios">MANAGER</span></label>
+                                <input required type="radio" id="DIRETTOREU" name="roleU" value="DIRETTORE" onchange="enableAllButStageU()">
+                                    <label class="radios four" for="DIRETTOREU"><span class="text-in-radios">DIRETTORE</span></label>
+                            </div>
+                            <br><br><br><br>
+                            <div id="radio-two">
+                                <input required type="radio" id="STAGEU" name="contractU" value="STAGE" class="contract">
+                                    <label class="radion one" for="STAGEU"><span class="text-in-radios">STAGE</span></label>
+                                <input required type="radio" id="PARTTIMEU" name="contractU" value="PARTTIME">
+                                    <label class="radion two" for="PARTTIMEU"><span class="text-in-radios">PART TIME</span></label>
+                                <input required type="radio" id="DETERMINATOU" name="contractU" value="DETERMINATO">
+                                    <label class="radion three" for="DETERMINATOU"><span class="text-in-radios">DETERMINATO</span></label>
+                                <input required type="radio" id="INDETERMINATOU" name="contractU" value="INDETERMINATO">
+                                    <label class="radion four"for="INDETERMINATOU"><span class="text-in-radios">INDETERMINATO</span></label>
+                            </div>
+
+                            <br><br><br><br>
+                            <div id="checkboxes">
+                                <input type="checkbox" name="ENGLISH" value="Conosce l'inglese" id="ENGLISHU"/>
+                                <label class="check one" for="ENGLISHU"><span class="text-in-check">CONOSCE L'INGLESE</span></label>
+                                <input type="checkbox" name="PATENT" value="Patente B" id="PATENTU" />
+                                <label class="check two" for="PATENTU"><span class="text-in-check">PATENTE B</span></label>
+                                <input type="checkbox" name="EXPTEN" value="Esperienza Decennale" id="EXPTENU" />
+                                <label class="check three" for="EXPTENU"><span class="text-in-check">ESPERIENZA DECENNALE</span></label>
+                            </div>
+                            <br><br><br><br><br><br>
+                            <br><br><br>
+                            <!-- Indicates a successful or positive action -->
+                            <button type="Submit" value="Submit" class="btn btn-info btn-lg btn3d"><span class="glyphicon glyphicon-question-sign"></span> AGGIORNA </button>
+                        </div>
+                    </form>
                 </div>
             </content>
 
@@ -151,6 +219,8 @@
                 uncheckAll();
 
                 readEmployees();
+
+                readEmployeesOverThirty();
             }
 
             function uncheckAll(){
@@ -192,22 +262,44 @@
 
             }
 
+            function uncheckContractsU() {
+
+                let x = document.getElementById("STAGEU");
+                x.checked = false;
+
+                x = document.getElementById("PARTTIMEU");
+                x.checked = false;
+
+                x = document.getElementById("DETERMINATOU");
+                x.checked = false;
+
+                x = document.getElementById("INDETERMINATOU");
+                x.checked = false;
+
+                }
+
             function toggleDarkTheme(){
 
                 
                 var element = document.getElementById("body");
                 element.classList.toggle("dark");
                 
-                var element = document.getElementById("moon");
-                element.classList.toggle("transparent");
-                
-                var element = document.getElementById("sun");
-                element.classList.toggle("transparent");
-                
                 let dark = getCookie("dark");
                 if ( dark == "false"){
+                    var element = document.getElementById("moon");
+                    element.classList.remove("transparent");
+                
+                    var element = document.getElementById("sun");
+                    element.classList.add("transparent");
+
                     setCookie("dark", "true", 30);
                 } else {
+
+                    var element = document.getElementById("moon");
+                    element.classList.add("transparent");
+                
+                    var element = document.getElementById("sun");
+                    element.classList.remove("transparent");
                     setCookie("dark", "false", 30);
                 }
             };
@@ -221,7 +313,10 @@
                 var element = document.getElementById("read-button");
                 element.disabled = false;
 
-                makeDisappear("employee-table", "create");
+                var element = document.getElementById("over-thirty-button");
+                element.disabled = false;
+
+                makeDisappear("employee-table", "create", "update", "employee-table-over-30k");
 
             }
 
@@ -234,12 +329,51 @@
                 var element = document.getElementById("create-button");
                 element.disabled = false;
 
-                makeDisappear("create", "employee-table");
+                var element = document.getElementById("over-thirty-button");
+                element.disabled = false;
+
+                makeDisappear("create", "employee-table", "update", "employee-table-over-30k");
 
             }
 
-            function makeDisappear(span, otherSpan) {
+            function pressUpdateButton(){
+
+                var element = document.getElementById("read-button");
+                element.disabled = false;
+
+                var element = document.getElementById("create-button");
+                element.disabled = true;
+
+                var element = document.getElementById("over-thirty-button");
+                element.disabled = false;
+
+                makeDisappear("employee-table", "update", "create", "employee-table-over-30k");
+            }
+
+            function overThirthyButton(){
+
+                var element = document.getElementById("create-button");
+                element.disabled = false;
+
+                var element = document.getElementById("read-button");
+                element.disabled = false;
+
+                var element = document.getElementById("over-thirty-button");
+                element.disabled = true;
+
+                makeDisappear("employee-table", "employee-table-over-30k", "update", "create" );
+
+            }
+
+            function makeDisappear(span, otherSpan, otherOtherSpan, otherOtherOtherSpan) {
+
                 var x = document.getElementById(span); 
+                x.style.display = "none";
+
+                var x = document.getElementById(otherOtherSpan); 
+                x.style.display = "none";
+
+                var x = document.getElementById(otherOtherOtherSpan); 
                 x.style.display = "none";
 
                 var x = document.getElementById(otherSpan); 
@@ -272,10 +406,27 @@
              function checkCookie() {
                 let dark = getCookie("dark");
                 if (dark != "true") {
+
+                    var element = document.getElementById("moon");
+                    element.classList.add("transparent");
+                
+                    var element = document.getElementById("sun");
+                    element.classList.remove("transparent");
+
                     setCookie("dark", "false", 30);
                 } else {
                     if (dark != "" && dark != null) {
-                        toggleDarkTheme();
+                        var element = document.getElementById("darkTheme");
+                        element.checked = true;
+
+                        var element = document.getElementById("moon");
+                        element.classList.remove("transparent");
+                
+                        var element = document.getElementById("sun");
+                        element.classList.add("transparent");
+
+                        var element = document.getElementById("body");
+                        element.classList.toggle("dark");
                         setCookie("dark", "true", 30);
                     }
 
@@ -295,8 +446,25 @@
                         console.log(xhr.responseText);
                     }};
 
-                    let role = displayRadioValue("role");
-                    let contract = displayRadioValue("contract");
+                    let role = "";
+                    if ( document.getElementById("STAGISTA").checked == true )
+                        role = "STAGISTA";
+                    else if ( document.getElementById("DIPENDENTE").checked == true)
+                        role = "DIPENDENTE";
+                    else if ( document.getElementById("MANAGER").checked == true)
+                        role = "MANAGER";
+                    else if ( document.getElementById("DIRETTORE").checked == true)
+                        role = "DIRETTORE"; 
+                        
+                    let contract = "";
+                    if ( document.getElementById("STAGE").checked == true )
+                        contract = "STAGE";
+                    else if ( document.getElementById("PARTTIME").checked == true)
+                        contract = "PARTTIME";
+                    else if ( document.getElementById("DETERMINATO").checked == true)
+                        contract = "DETERMINATO";
+                    else if ( document.getElementById("INDETERMINATO").checked == true)
+                        contract = "INDETERMINATO"; 
 
                     let competences = checkCheckboxes("ENGLISH","PATENT","EXPTEN");
 
@@ -318,13 +486,8 @@
                     alert(xhr.responseText);
             }
 
-            function displayRadioValue(name) {
-                let ele = document.getElementsByName(name);
-            
-                for (i = 0; i < ele.length; i++) {
-                    if (ele[i].checked)
-                        return ele[i].value;
-                }
+            function displayRadioValueRole() {
+                
             }
 
             function checkCheckboxes(first,second,third) {
@@ -378,6 +541,24 @@
                 uncheckContracts()
             }
 
+            function disableRestU(){
+
+                let x = document.getElementById("STAGEU");
+                x.disabled = false;
+                x.classList.toggle("disabled");
+
+                x = document.getElementById("PARTTIMEU");
+                x.disabled = true;
+
+                x = document.getElementById("DETERMINATOU");
+                x.disabled = true;
+
+                x = document.getElementById("INDETERMINATOU");
+                x.disabled = true;
+
+                uncheckContractsU()
+                }
+
             function enableAllButStage(){
 
                 let x = document.getElementById("STAGE");
@@ -395,6 +576,23 @@
                 uncheckContracts()
             }
 
+            function enableAllButStageU(){
+
+                let x = document.getElementById("STAGEU");
+                x.disabled = true;
+
+                x = document.getElementById("PARTTIMEU");
+                x.disabled = false;
+
+                x = document.getElementById("DETERMINATOU");
+                x.disabled = false;
+
+                x = document.getElementById("INDETERMINATOU");
+                x.disabled = false;
+
+                uncheckContractsU()
+                }
+
 
             function readEmployees(){
 
@@ -405,7 +603,7 @@
                 req.onload  = function() {
                     var jsonResponse = req.response;
                     if (jsonResponse != "[]" )
-                        convert(jsonResponse);            
+                        convert(jsonResponse);           
                 };
 
                 let x = req.send()
@@ -413,11 +611,29 @@
 
             }
 
+            function readEmployeesOverThirty(){
+
+                const req = new XMLHttpRequest();
+
+                req.open("GET", "http:localhost:8080/employee-controller/employees/30000k");
+
+                req.onload  = function() {
+                    var jsonResponse = req.response;
+                    if (jsonResponse != "[]" )
+                        convertO(jsonResponse);            
+                };
+
+                let x = req.send()
+
+
+                }
+
 
             var i = 0;
             function convert(jsonResponse) {
 
                 jsonResponse = JSON.parse(jsonResponse);
+                
                 let jsonData = jsonResponse;
                 // Get the container element where the table will be inserted
                 let container = document.getElementById("employee-table");
@@ -459,10 +675,79 @@
                     btn.value = "";
                     btn.id = i;
                     btn.onclick = ( function() {    var table = document.getElementById('employees');
+                                                    var result = "";
                                                     for (var r = +this.id + 2, n = +this.id + 3; r < n; r++) {
-                                                        for (var c = 2, m = table.rows[r].cells.length - 7; c < m; c++) {
-                                                            alert(table.rows[r].cells[c].innerHTML);
+                                                        for (var c = 0, m = table.rows[r].cells.length - 2; c < m; c++) {
+                                                            result = result + (table.rows[r].cells[c].innerHTML) + "|";
+   
                                                         }
+                                                        
+                                                        const myArray = result.split("|");
+
+                                                        let x = document.getElementById ("nameU");
+                                                        x.value = myArray[0];
+
+                                                        x = document.getElementById ("surnameU");
+                                                        x.value = myArray[1];
+
+                                                        x = document.getElementById ("taxCodeU");
+                                                        x.value = myArray[2];
+                                                        x.disabled = true;
+
+                                                        x = document.getElementById ("birthU");
+                                                        x.value = myArray[3];
+
+                                                        x = document.getElementById ("salaryU");
+                                                        x.value = myArray[5];
+                                                        
+
+                                                        if ( myArray[4] == "STAGISTA"){
+                                                            x = document.getElementById ("STAGISTAU");
+                                                            x.checked = true;
+                                                            disableRest();
+                                                        } else if ( myArray[4] == "DIPENDENTE" ){
+                                                            x = document.getElementById ("DIPENDENTEU");
+                                                            x.checked = true;
+                                                            enableAllButStage();
+                                                        } else if ( myArray[4] == "MANAGER" ){
+                                                            x = document.getElementById ("MANAGERU");
+                                                            x.checked = true;
+                                                            enableAllButStage();
+                                                        } else if ( myArray[4] == "DIRETTORE" ){
+                                                            x = document.getElementById ("DIRETTOREU");
+                                                            x.checked = true;
+                                                            enableAllButStage();
+                                                        }
+
+                                                        if ( myArray[6] == "STAGE"){
+                                                            x = document.getElementById ("STAGEU");
+                                                            x.checked = true;
+                                                        } else if ( myArray[6] == "PARTTIME" ){
+                                                            x = document.getElementById ("PARTTIMEU");
+                                                            x.checked = true;
+                                                        } else if ( myArray[6] == "DETERMINATO" ){
+                                                            x = document.getElementById ("DETERMINATOU");
+                                                            x.checked = true;
+                                                        } else if ( myArray[6] == "INDETERMINATO" ){
+                                                            x = document.getElementById ("INDETERMINATOU");
+                                                            x.checked = true;
+                                                        }
+
+                                                        let competences = myArray[7].split(",");
+                                                        for (let step = 0; step < competences.length; step++) {
+                                                            if (competences[step] == "Conosce l'inglese"){
+                                                                let x = document.getElementById("ENGLISHU");
+                                                                x.checked = true;
+                                                            } else if (competences[step] == "Patente B"){
+                                                                let x = document.getElementById("PATENTU");
+                                                                x.checked = true;
+                                                            }else if (competences[step] == "Esperienza Decennale"){
+                                                                let x = document.getElementById("EXPTENU");
+                                                                x.checked = true;
+                                                            }
+                                                        }
+
+                                                        pressUpdateButton();
                                                     }
                                                 });
                     td.appendChild(btn);
@@ -501,10 +786,223 @@
                 container.appendChild(table) // Append the table to the container element
             }
 
+            var k = 0;
+            function convertO(jsonResponse) {
+
+                jsonResponse = JSON.parse(jsonResponse);
+                
+                let jsonData = jsonResponse;
+                // Get the container element where the table will be inserted
+                let container = document.getElementById("employee-table-over-30k");
+                
+                // Create the table element
+                let table = document.getElementById("employees-30k");
+                
+                // Get the keys (column "name"s) of the first object in the JSON data
+                let cols = Object.keys(jsonData[0]);
+                
+                // Create the header element
+                let thead = document.createElement("thead");
+                let tr = document.createElement("tr");
+                
+                thead.appendChild(tr); // Append the header row to the header
+                table.append(tr) // Append the header to the table
+
+                
+                
+                // Loop through the JSON data and create table rows
+                jsonData.forEach((item) => {
+
+                    let tr = document.createElement("tr");
+                    
+                    // Get the values of the current object in the JSON data
+                    let vals = Object.values(item);
+                    
+                    // Loop through the values and create table cells
+                    vals.forEach((elem) => {
+                        let td = document.createElement("td");
+                        td.innerText = elem; // Set the value as the text of the table cell
+                        tr.appendChild(td); // Append the table cell to the table row
+                    });
+
+                    let td = document.createElement("td");
+                    var btn = document.createElement('input');
+                    btn.type = "button";
+                    btn.className = "update-button";
+                    btn.value = "";
+                    btn.id = k;
+
+                    btn.onclick = ( function() {    var table = document.getElementById('employees-30k');
+                                                    var result = "";
+                                                    for (var r = +this.id + 2, n = +this.id + 3; r < n; r++) {
+                                                        for (var c = 0, m = table.rows[r].cells.length - 2; c < m; c++) {
+                                                            result = result + (table.rows[r].cells[c].innerHTML) + "|";
+   
+                                                        }
+                                                        
+                                                        const myArray = result.split("|");
+
+                                                        let x = document.getElementById ("nameU");
+                                                        x.value = myArray[0];
+
+                                                        x = document.getElementById ("surnameU");
+                                                        x.value = myArray[1];
+
+                                                        x = document.getElementById ("taxCodeU");
+                                                        x.value = myArray[2];
+                                                        x.disabled = true;
+
+                                                        x = document.getElementById ("birthU");
+                                                        x.value = myArray[3];
+
+                                                        x = document.getElementById ("salaryU");
+                                                        x.value = myArray[5];
+                                                        
+
+                                                        if ( myArray[4] == "STAGISTA"){
+                                                            x = document.getElementById ("STAGISTAU");
+                                                            x.checked = true;
+                                                            disableRest();
+                                                        } else if ( myArray[4] == "DIPENDENTE" ){
+                                                            x = document.getElementById ("DIPENDENTEU");
+                                                            x.checked = true;
+                                                            enableAllButStage();
+                                                        } else if ( myArray[4] == "MANAGER" ){
+                                                            x = document.getElementById ("MANAGERU");
+                                                            x.checked = true;
+                                                            enableAllButStage();
+                                                        } else if ( myArray[4] == "DIRETTORE" ){
+                                                            x = document.getElementById ("DIRETTOREU");
+                                                            x.checked = true;
+                                                            enableAllButStage();
+                                                        }
+
+                                                        if ( myArray[6] == "STAGE"){
+                                                            x = document.getElementById ("STAGEU");
+                                                            x.checked = true;
+                                                        } else if ( myArray[6] == "PARTTIME" ){
+                                                            x = document.getElementById ("PARTTIMEU");
+                                                            x.checked = true;
+                                                        } else if ( myArray[6] == "DETERMINATO" ){
+                                                            x = document.getElementById ("DETERMINATOU");
+                                                            x.checked = true;
+                                                        } else if ( myArray[6] == "INDETERMINATO" ){
+                                                            x = document.getElementById ("INDETERMINATOU");
+                                                            x.checked = true;
+                                                        }
+
+                                                        let competences = myArray[7].split(",");
+                                                        for (let step = 0; step < competences.length; step++) {
+                                                            if (competences[step] == "Conosce l'inglese"){
+                                                                let x = document.getElementById("ENGLISHU");
+                                                                x.checked = true;
+                                                            } else if (competences[step] == "Patente B"){
+                                                                let x = document.getElementById("PATENTU");
+                                                                x.checked = true;
+                                                            }else if (competences[step] == "Esperienza Decennale"){
+                                                                let x = document.getElementById("EXPTENU");
+                                                                x.checked = true;
+                                                            }
+                                                        }
+
+                                                        pressUpdateButton();
+                                                    }
+                                                });
+                    td.appendChild(btn);
+                    tr.appendChild(td);
+                    td = document.createElement("td");
+                    btn = document.createElement('input');
+                    btn.type = "submit";
+                    btn.className = "delete-button";
+                    btn.value = "";
+                    btn.id = k;
+                    btn.onclick = ( function() {    var table = document.getElementById('employees-30k');
+                                                    for (var r = +this.id + 2, n = +this.id + 3; r < n; r++) {
+                                                        for (var c = 2, m = table.rows[r].cells.length - 7; c < m; c++) {
+                                                            const req = new XMLHttpRequest();
+                                                            req.open("DELETE", "http:localhost:8080/employee-controller/delete-employee/" + table.rows[r].cells[c].innerHTML);
+
+                                                            req.onload  = function() {
+                                                                var jsonResponse = req.response;
+                                                                convert(jsonResponse);            
+                                                            };
+
+                                                            let x = req.send();
+
+                                                            alert("Utente cancellato")
+
+                                                            location.reload()
+                                                            
+                                                        }
+                                                    }
+                                                });
+                    td.appendChild(btn);
+                    tr.appendChild(td);
+                    table.appendChild(tr); // Append the table row to the table
+                    k++;
+                });
+                container.appendChild(table) // Append the table to the container element
+            }
+
             function reply_click(clicked_id)
                     {
                         /* alert(clicked_id); */
                     }
+
+            function updateEmployee(){
+
+                let taxCode = document.getElementById("taxCodeU").value
+
+                let xhr = new XMLHttpRequest();
+                xhr.open("PUT", "http://localhost:8080/employee-controller/update/" + taxCode);
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+
+                xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    console.log(xhr.status);
+                    console.log(xhr.responseText);
+                }};
+
+                let role = "";
+                if ( document.getElementById("STAGISTAU").checked == true )
+                    role = "STAGISTA";
+                else if ( document.getElementById("DIPENDENTEU").checked == true)
+                    role = "DIPENDENTE";
+                else if ( document.getElementById("MANAGERU").checked == true)
+                    role = "MANAGER";
+                else if ( document.getElementById("DIRETTOREU").checked == true)
+                    role = "DIRETTORE"; 
+                    
+                let contract = "";
+                if ( document.getElementById("STAGEU").checked == true )
+                    contract = "STAGE";
+                else if ( document.getElementById("PARTTIMEU").checked == true)
+                    contract = "PARTTIME";
+                else if ( document.getElementById("DETERMINATOU").checked == true)
+                    contract = "DETERMINATO";
+                else if ( document.getElementById("INDETERMINATOU").checked == true)
+                    contract = "INDETERMINATO"; 
+
+                let competences = checkCheckboxes("ENGLISHU","PATENTU","EXPTENU");
+
+                let data = "{\n" + 
+                                "\t\"name\": \"" + document.querySelector('#nameU').value + "\",\n" +
+                                "\t\"surname\": \"" + document.querySelector('#surnameU').value + "\",\n" + 
+                                "\t\"taxCode\": \"" + document.querySelector('#taxCodeU').value + "\",\n" +
+                                "\t\"birth\": \"" + document.querySelector('#birthU').value + "\",\n" +
+                                "\t\"role\": \"" + role + "\",\n" +
+                                "\t\"salary\":" + document.querySelector('#salaryU').value + ",\n" +
+                                "\t\"contract\": \"" + contract + "\",\n" +
+                                "\t\"competenceList\": [\n" + competences +
+                                "\t]\n" +
+                            "}";
+
+                xhr.send(data);
+
+                alert("Richiesta inviata")
+                alert(xhr.responseText);
+            }
 
     </script>
 

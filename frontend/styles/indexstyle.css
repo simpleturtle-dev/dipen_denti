@@ -95,7 +95,7 @@ header{
 
 .logo-banner{
     position: relative;
-    left: -4px;
+    left: 100px;
     width:105px;
     border-radius: 50%;
 }
@@ -134,7 +134,7 @@ header{
   width: 60px;
   height: 34px;
   bottom:50px;
-  left:17%;
+  left:70%;
     
 }
   
@@ -198,8 +198,8 @@ input:checked + .slider:before {
   transition: 300ms;
 }
 
-.moon{ left:17.5%; }
-.sun{ left: 16.5%; }
+.moon{ left:70.5%; }
+.sun{ left: 69.5%; }
 .moon.transparent { opacity: 0;}
 .sun.transparent { opacity: 0;}
 
@@ -236,12 +236,12 @@ content{
   margin-left: 20px;
 }
 
-.read-button, .create-button{
+.read-button, .create-button, .over-thirty-button{
   position: relative;
   width:45%;
   height: 80%;
   left:160px;
-  top:40px;
+  top:10px;
   border-top-left-radius: 50px;
   border-bottom-left-radius: 50px;
   border-top-right-radius: 50px;
@@ -251,10 +251,15 @@ content{
   color:var(--color);
 }
 
+
+
 .read-button{
   border: 15px solid rgb(49, 199, 94);
   background-color: rgb(62, 251, 119);
   color: black;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  height:250px;
 }
 
 .read-button:hover{
@@ -279,6 +284,7 @@ content{
   border: 15px solid rgb(31, 163, 207);
   background-color: rgb(37, 199, 253);
   color: black;
+  height:300px;
 }
 
 .create-button:hover{
@@ -298,6 +304,37 @@ content{
   opacity: 0.3;
 }
 
+.over-thirty-button{
+  top:-40px;
+  bottom:500px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  font-size: 30px;
+  padding-bottom:10px;
+  border: 15px solid rgb(49, 199, 94);
+  border-top: 0px;
+  background-color: rgb(62, 251, 119);
+  color: black;
+}
+
+.over-thirty-button:hover{
+  background-color: rgb(59, 216, 106);
+  color:black;
+}
+
+
+.over-thirty-button:active{
+  background-color: rgb(44, 174, 83);
+  transition: 0ms;
+}
+
+.over-thirty-button:disabled{
+  border: 15px solid rgba(197, 255, 215, 0.448);
+  background-color: rgba(197, 255, 215, 0.448);
+  color:black;
+  opacity: 0.3;
+}
+
 .interface-container{
   grid-area: interface;
   background-color: var(--tiles-background);
@@ -309,6 +346,11 @@ content{
   border-bottom-right-radius: 50px;
   margin-top: -40px;
   margin-left: 20px;
+}
+
+.update-interface{
+  margin-top: 15px;
+  animation: drop-in-from-below-margin 0.9s;
 }
 
 .create-interface{
@@ -341,9 +383,14 @@ content{
   transition: 200ms;
 }
 
-.input-form[id="birth"]{
+.input-form[id="birth"], .input-form[id="birthU"]{
   width:65%;
   margin-left:20px;
+}
+
+.input-form[id="taxCodeU"]{
+  border: 2px solid gray;
+  color: gray;
 }
 
 .radios{
@@ -558,7 +605,7 @@ content{
 	margin-left: 2px;
 	margin-right: 2px;
   color:white;
-  width:100px;
+  width:180px;
   height:60px;
   border-radius: 10px;
   font-size: 25px;
@@ -590,6 +637,17 @@ content{
 .btn3d.btn-success.active {
 	box-shadow: 0 0 0 1px #30cd00 inset, 0 0 0 1px rgba(255, 255, 255, 0.15) inset, 0 1px 3px 1px rgba(0, 0, 0, 0.3);
 	background-color: #78d739;
+}
+
+.btn3d.btn-info {
+	box-shadow: 0 0 0 1px #00a5c3 inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 8px 0 0 #348FD2, 0 8px 8px 1px rgba(0, 0, 0, 0.5);
+	background-color: #39B3D7;
+}
+
+.btn3d.btn-info:active,
+.btn3d.btn-info.active {
+	box-shadow: 0 0 0 1px #00a5c3 inset, 0 0 0 1px rgba(255, 255, 255, 0.15) inset, 0 1px 3px 1px rgba(0, 0, 0, 0.3);
+	background-color: #39B3D7;
 }
 
 footer{
@@ -668,6 +726,12 @@ footer{
 }
 
 .employee-table{
+  margin-top: 15px;
+  padding:50px;
+  animation: drop-in-from-below-margin 0.9s;
+}
+
+.employee-table-over-30k{
   margin-top: 15px;
   padding:50px;
   animation: drop-in-from-below-margin 0.9s;
@@ -757,4 +821,8 @@ td, th {
 .update-button{
   background-color: aqua;
   width:80%;
+}
+
+#taxCode:disabled{
+  opacity:0.4;
 }
