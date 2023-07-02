@@ -573,6 +573,7 @@ content{
 .btn3d:focus {
 	-moz-outline-style: none;
 	outline: medium none;
+  outline-style: none;
 }
 
 .btn3d:active,
@@ -664,4 +665,96 @@ footer{
   font-size: 30px;
   margin-left: 150px;
   margin-top: 40px;
+}
+
+.employee-table{
+  margin-top: 15px;
+  padding:50px;
+  animation: drop-in-from-below-margin 0.9s;
+}
+
+table, th, td {
+  border: 1px solid var(--color);
+  border-collapse: collapse; 
+  font-size:10px;
+  
+}
+
+table th:nth-child(1) {  
+  font-size: 8px;
+  width:90px;
+}
+
+table th:nth-child(2) {  
+  font-size: 8px;
+  width:90px;
+}
+
+table th:nth-child(3) {  
+  font-size: 8px;
+  width:110px;
+}
+
+table th:nth-child(5) {  
+  font-size: 8px;
+  width:60px;
+}
+
+table th:nth-child(6) {  
+  font-size: 8px;
+  width:60px;
+}
+
+table th:nth-child(7) {  
+  font-size: 8px;
+  width:70px;
+}
+
+table th:nth-child(8) {  
+  font-size: 8px;
+  width:200px;
+}
+
+table td:nth-child(8) {  
+  width:190px;
+  font-size: 8px;
+}
+
+table th:nth-child(9), table th:nth-child(10){  
+  width:80px;
+}
+
+table th:nth-child(9){  
+  width:80px;
+  background-color: rgb(0, 136, 136);
+  color: white;
+}
+
+table th:nth-child(10){  
+  width:80px;
+  background-color: rgb(154, 1, 1);
+  color: white;
+
+}
+
+table td:nth-child(9):hover{  
+  background-color: rgba(0, 136, 136, 0.471);
+}
+
+table td:nth-child(10):hover{  
+  background-color: rgba(154, 1, 1, 0.474);
+}
+
+td, th {
+  padding: 10px;
+}
+
+.delete-button{
+  background-color: red;
+  width:80%;
+}
+
+.update-button{
+  background-color: aqua;
+  width:80%;
 }
