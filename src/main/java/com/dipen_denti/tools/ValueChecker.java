@@ -26,6 +26,25 @@ public class ValueChecker {
         return false;
     }
 
+    // Check if given strings have special characters and numbers ( made universal by 
+    // recieving a list of strings instead of fixed number of strings )
+    public boolean checkForSpecialCharactersAndNumbers ( List < String > strings ) {
+
+        Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
+
+        for (String string : strings) 
+            if ( special.matcher(string).find() )
+                return true;
+
+        special = Pattern.compile ("\\d");
+
+        for (String string : strings) 
+            if ( special.matcher(string).find() )
+                return true;
+        
+        return false;
+    }
+
     // Check if given date is at least eighteen from now
     public boolean checkIfPersonIsEighteen ( Date date ){
 

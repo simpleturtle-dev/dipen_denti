@@ -171,9 +171,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     // Method to check if employee object has all the required fields correctly compiled
     private String isNotCorrectlyFilled ( Employee employee ) {
         
-        // Check if there are special charachters in name, surname and taxcode
+        // Check if there are special charachters in taxcode
         if ( new ValueChecker().checkForSpecialCharacters(
-                Arrays.asList(employee.getName(),employee.getSurname(), employee.getTaxCode())))
+                Arrays.asList(employee.getTaxCode())))
+                    return "Non mettere caratteri speciali!";
+
+        // Check if there are special charachters and numbers in nameand  surname
+        if ( new ValueChecker().checkForSpecialCharactersAndNumbers(
+                Arrays.asList(employee.getName(),employee.getSurname())))
                     return "Non mettere caratteri speciali!";
             
             
