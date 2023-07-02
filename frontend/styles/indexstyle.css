@@ -202,7 +202,7 @@ input:checked + .slider:before {
 .sun{ left: 16.5%; }
 .moon.transparent { opacity: 0;}
 .sun.transparent { opacity: 0;}
-
+caramba
 content{
     grid-area: content;
     display: grid;
