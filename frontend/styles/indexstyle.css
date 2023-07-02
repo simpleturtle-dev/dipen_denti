@@ -9,7 +9,7 @@
 
 @keyframes drop-in-from-below-margin {
   0%   {margin-top:170px; opacity: 0;}
-  100% {margin-top:50px; opacity: 1;}
+  100% {margin-top: 15px; opacity: 1;}
 }
 
 @keyframes go-right {
@@ -84,7 +84,7 @@ header{
     text-align: left;
     background-color: rgb(243, 184, 82);
 
-    width:1800px;
+    width:1450px;
     height: 70%;
 
     border-top-left-radius: 50px;
@@ -206,8 +206,8 @@ input:checked + .slider:before {
 content{
     grid-area: content;
     display: grid;
-    width:1600px;
-    height: 2200px;
+    width:1300px;
+    height: 1800px;
     background-color: var(--main-tile-background);
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
@@ -217,7 +217,7 @@ content{
     grid-template-areas:
         "buttons"
         "interface";
-    grid-template-rows: 30% 80%;
+    grid-template-rows: 23% 77%;
 }
 
 .buttons-container{
@@ -238,10 +238,10 @@ content{
 
 .read-button, .create-button{
   position: relative;
-  width:60%;
+  width:45%;
   height: 80%;
-  left:150px;
-  top:60px;
+  left:160px;
+  top:40px;
   border-top-left-radius: 50px;
   border-bottom-left-radius: 50px;
   border-top-right-radius: 50px;
@@ -302,17 +302,18 @@ content{
   grid-area: interface;
   background-color: var(--tiles-background);
   width:98%;
-  height:80%;
+  height:100%;
   border-top-left-radius: 50px;
   border-bottom-left-radius: 50px;
   border-top-right-radius: 50px;
   border-bottom-right-radius: 50px;
-  margin-top: -100px;
+  margin-top: -40px;
   margin-left: 20px;
 }
 
 .create-interface{
   margin:50px;
+  margin-top: 15px;
   height: 90%;
   animation: drop-in-from-below-margin 0.9s;
 }
@@ -583,7 +584,6 @@ footer{
   border-top-right-radius: 50px;
   border-bottom-right-radius: 50px;
   color: white;
-  margin-top: -500px;
   padding:50px;
   display: grid;
 
