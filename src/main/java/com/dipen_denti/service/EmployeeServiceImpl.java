@@ -146,6 +146,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     // Method to check if employee object has all the required fields
     private boolean isNotFilled ( Employee employee ) {
         
+        if ( employee.getName() == null 
+        || employee.getSurname() == null
+        || employee.getTaxCode() == null 
+        || employee.getSalary() <= 0
+        || employee.getContract() == null 
+        || employee.getRole() == null
+        || employee.getBirth() == null )
+            return true;
+
         return (   employee.getName().isBlank() 
         || employee.getSurname().isBlank()
         || employee.getTaxCode().isBlank() 

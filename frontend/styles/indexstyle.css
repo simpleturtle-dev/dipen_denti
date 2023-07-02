@@ -342,7 +342,7 @@ content{
 }
 
 .input-form[id="birth"]{
-  width:69%;
+  width:65%;
   margin-left:20px;
 }
 
@@ -425,6 +425,7 @@ content{
   color:white;
   user-select: none;
   color: var(--color);
+  font-size: 18px;
   margin-top:60px;
 }
 

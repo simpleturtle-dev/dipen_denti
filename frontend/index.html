@@ -46,56 +46,57 @@
                 <div class="interface-container">
 
                     <span class="table" id="table"> TABELLA </span>
+                    <form id="employee-form" method="post" onsubmit="return sendEmployee()">
+                        <div class="create-interface" id ="create">
 
-                    <div class="create-interface" id ="create">
+                            <input form="text" name="name" id="name" class="input-form" placeholder="Nome" maxlength="18">
 
-                        <input form="text" id="name" class="input-form" placeholder="Nome" maxlength="18">
+                            <input form="text" name="surname" id="surname" class="input-form" placeholder="Cognome" maxlength="18">
 
-                        <input form="text" id="surname" class="input-form" placeholder="Cognome" maxlength="18">
+                            <input form="text" name="taxCode" id="taxCode" class="input-form" placeholder="Codice Fiscale" maxlength="16">
 
-                        <input form="text" id="taxCode" class="input-form" placeholder="Codice Fiscale" maxlength="16">
+                            <br>Data di nascita
+                            <input form="text" name="birth" type="date"id="birth" class="input-form">
+                            <input form="text" name="salary" id="salary" class="input-form" placeholder="RAL" maxlength="15">
 
-                        <br>Data di nascita
-                        <input form="text" type="date"id="birth" class="input-form">
-                        <input form="text" id="salary" class="input-form" placeholder="RAL" maxlength="15">
+                            <br><br><br><br>
+                            <div id="radio-one">
+                                <input type="radio" id="STAGISTA" name="role" value="STAGISTA">
+                                    <label class="radios one" for="STAGISTA"><span class="text-in-radios">STAGISTA</span></label>
+                                <input type="radio" id="DIPENDENTE" name="role" value="DIPENDENTE">
+                                    <label class="radios two" for="DIPENDENTE"><span class="text-in-radios">DIPENDENTE</span></label>
+                                <input type="radio" id="MANAGER" name="role" value="MANAGER">
+                                    <label class="radios three" for="MANAGER"><span class="text-in-radios">MANAGER</span></label>
+                                <input type="radio" id="DIRETTORE" name="role" value="DIRETTORE">
+                                    <label class="radios four" for="DIRETTORE"><span class="text-in-radios">DIRETTORE</span></label>
+                            </div>
+                            <br><br><br><br>
+                            <div id="radio-two">
+                                <input type="radio" id="STAGE" name="contract" value="STAGE" class="contract">
+                                    <label class="radion one" for="STAGE"><span class="text-in-radios">STAGE</span></label>
+                                <input type="radio" id="PARTTIME" name="contract" value="PARTTIME">
+                                    <label class="radion two" for="PARTTIME"><span class="text-in-radios">PART TIME</span></label>
+                                <input type="radio" id="DETERMINATO" name="contract" value="DETERMINATO">
+                                    <label class="radion three" for="DETERMINATO"><span class="text-in-radios">DETERMINATO</span></label>
+                                <input type="radio" id="INDETERMINATO" name="contract" value="INDETERMINATO">
+                                    <label class="radion four"for="INDETERMINATO"><span class="text-in-radios">INDETERMINATO</span></label>
+                            </div>
 
-                        <br><br><br><br>
-                        <div id="radio-one">
-                            <input type="radio" id="STAGISTA" name="role" value="STAGISTA">
-                                <label class="radios one" for="STAGISTA"><span class="text-in-radios">STAGISTA</span></label>
-                            <input type="radio" id="DIPENDENTE" name="role" value="DIPENDENTE">
-                                <label class="radios two" for="DIPENDENTE"><span class="text-in-radios">DIPENDENTE</span></label>
-                            <input type="radio" id="MANAGER" name="role" value="MANAGER">
-                                <label class="radios three" for="MANAGER"><span class="text-in-radios">MANAGER</span></label>
-                            <input type="radio" id="DIRETTORE" name="role" value="DIRETTORE">
-                                <label class="radios four" for="DIRETTORE"><span class="text-in-radios">DIRETTORE</span></label>
+                            <br><br><br><br>
+                            <div id="checkboxes">
+                                <input type="checkbox" name="ENGLISH" value="Conosce l'inglese" id="ENGLISH"/>
+                                <label class="check one" for="ENGLISH"><span class="text-in-check">CONOSCE L'INGLESE</span></label>
+                                <input type="checkbox" name="PATENT" value="Patente B" id="PATENT" />
+                                <label class="check two" for="PATENT"><span class="text-in-check">PATENTE B</span></label>
+                                <input type="checkbox" name="EXPTEN" value="Esperienza Decennale" id="EXPTEN" />
+                                <label class="check three" for="EXPTEN"><span class="text-in-check">ESPERIENZA DECENNALE</span></label>
+                            </div>
+                            <br><br><br><br><br><br>
+                            <br><br><br>
+                            <!-- Indicates a successful or positive action -->
+                            <button type="Submit" value="Submit" class="btn btn-success btn-lg btn3d"><span class="glyphicon glyphicon-ok"></span> CREA</button>
                         </div>
-                        <br><br><br><br>
-                        <div id="radio-two">
-                            <input type="radio" id="STAGE" name="contract" value="STAGE" class="contract">
-                                <label class="radion one" for="STAGE"><span class="text-in-radios">STAGE</span></label>
-                            <input type="radio" id="PARTTIME" name="contract" value="PARTTIME">
-                                <label class="radion two" for="PARTTIME"><span class="text-in-radios">PART TIME</span></label>
-                            <input type="radio" id="DETERMINATO" name="contract" value="DETERMINATO">
-                                <label class="radion three" for="DETERMINATO"><span class="text-in-radios">DETERMINATO</span></label>
-                            <input type="radio" id="INDETERMINATO" name="contract" value="INDETERMINATO">
-                                <label class="radion four"for="INDETERMINATO"><span class="text-in-radios">INDETERMINATO</span></label>
-                        </div>
-                        
-                        <br><br><br><br>
-                        <div id="checkboxes">
-                            <input type="checkbox" name="ENGLISH" value="Conosce l'inglese" id="ENGLISH"/>
-                            <label class="check one" for="ENGLISH"><span class="text-in-check">CONOSCE L'INGLESE</span></label>
-                            <input type="checkbox" name="PATENT" value="Patente B" id="PATENT" />
-                            <label class="check two" for="PATENT"><span class="text-in-check">PATENTE B</span></label>
-                            <input type="checkbox" name="EXPTEN" value="Esperienza Decennale" id="EXPTEN" />
-                            <label class="check three" for="EXPTEN"><span class="text-in-check">ESPERIENZA DECENNALE</span></label>
-                        </div>
-                        <br><br><br><br><br><br>
-                        <br><br><br>
-                        <!-- Indicates a successful or positive action -->
-		<button type="button" class="btn btn-success btn-lg btn3d"><span class="glyphicon glyphicon-ok"></span> CREA</button>
-                    </div>
+                    </form>
                 </div>
             </content>
 
@@ -219,6 +220,74 @@
 
                 }
             }
+
+            function sendEmployee (){
+
+                let xhr = new XMLHttpRequest();
+                    xhr.open("POST", "http://localhost:8080/employee-controller/hire-employee");
+                    xhr.setRequestHeader("Accept", "application/json");
+                    xhr.setRequestHeader("Content-Type", "application/json");
+
+                    xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        console.log(xhr.status);
+                        console.log(xhr.responseText);
+                    }};
+
+                    let role = displayRadioValue("role");
+                    let contract = displayRadioValue("contract");
+
+                    let competences = checkCheckboxes("ENGLISH","PATENT","EXPTEN");
+
+                    let data = "{\n" + 
+                                    "\t\"name\": \"" + document.querySelector('#name').value + "\",\n" +
+                                    "\t\"surname\": \"" + document.querySelector('#surname').value + "\",\n" + 
+                                    "\t\"taxCode\": \"" + document.querySelector('#taxCode').value + "\",\n" +
+                                    "\t\"birth\": \"" + document.querySelector('#birth').value + "\",\n" +
+                                    "\t\"role\": \"" + role + "\",\n" +
+                                    "\t\"salary\":" + document.querySelector('#salary').value + ",\n" +
+                                    "\t\"contract\": \"" + contract + "\",\n" +
+                                    "\t\"competenceList\": [\n" +
+                                    "\t\t\"Competence1\",\n" +
+                                    "\t\t\"Competence2\",\n" +
+                                    "\t\t\"Competence3\"\n" +
+                                    "\t]\n" +
+                                "}";
+                    
+
+                    xhr.send(data);
+
+                    alert (data)
+
+            }
+
+            function displayRadioValue(name) {
+                let ele = document.getElementsByName(name);
+            
+                for (i = 0; i < ele.length; i++) {
+                    if (ele[i].checked)
+                        return ele[i].value;
+                }
+            }
+
+            function checkCheckboxes(first,second,third) {
+
+                let result = "";
+
+                let ele = document.getElementById(first);
+                    if (ele.checked)
+                        result = result = "\t\tConosce l'inglese\n"
+
+                ele = document.getElementById(second);
+                    if (ele.checked)
+                        result = result = "\t\tPatente B\n"
+
+                ele = document.getElementById(third);
+                    if (ele.checked)
+                        result = result = "\t\tEsperienza decennale\n"
+                
+            }
+
     </script>
 
 

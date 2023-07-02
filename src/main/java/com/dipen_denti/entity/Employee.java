@@ -55,9 +55,9 @@ public class Employee {
         "name": null,
         "surname": null,
         "taxCode": null,
-        "birth": null,
+        "birth": YYYY-dd-MM,
         "role": null,
-        "payPerYear": 0.0,
+        "salary": 0.0,
         "contract": null,
         "competenceList": [
             "Competence1", 
