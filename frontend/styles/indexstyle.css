@@ -466,9 +466,17 @@ content{
   color: white;
 }
 
+#radio-two input[type=radio]:disabled + .radion.one{
+  opacity: 0.4;
+}
+
 #radio-two input[type=radio]:checked + .radion.two{
   background-color: rgb(132, 101, 33);
   color: white;
+}
+
+#radio-two input[type=radio]:disabled + .radion.two{
+  opacity: 0.4;
 }
 
 #radio-two input[type=radio]:checked + .radion.three{
@@ -476,9 +484,17 @@ content{
   color: white;
 }
 
+#radio-two input[type=radio]:disabled + .radion.three{
+  opacity: 0.4;
+}
+
 #radio-two input[type=radio]:checked + .radion.four{
   background-color: rgb(0, 165, 235);
   color: white;
+}
+
+#radio-two input[type=radio]:disabled + .radion.four{
+  opacity: 0.4;
 }
 
 .text-in-radios{

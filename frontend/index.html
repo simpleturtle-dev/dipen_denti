@@ -49,36 +49,36 @@
                     <form id="employee-form" method="post" onsubmit="return sendEmployee()">
                         <div class="create-interface" id ="create">
 
-                            <input form="text" name="name" id="name" class="input-form" placeholder="Nome" maxlength="18">
+                            <input required form="text" name="name" id="name" class="input-form" placeholder="Nome" maxlength="18">
 
-                            <input form="text" name="surname" id="surname" class="input-form" placeholder="Cognome" maxlength="18">
+                            <input required form="text" name="surname" id="surname" class="input-form" placeholder="Cognome" maxlength="18">
 
-                            <input form="text" name="taxCode" id="taxCode" class="input-form" placeholder="Codice Fiscale" maxlength="16">
+                            <input required form="text" name="taxCode" id="taxCode" class="input-form" placeholder="Codice Fiscale" maxlength="16">
 
                             <br>Data di nascita
-                            <input form="text" name="birth" type="date"id="birth" class="input-form">
-                            <input form="text" name="salary" id="salary" class="input-form" placeholder="RAL" maxlength="15">
+                            <input required form="text" name="birth" type="date"id="birth" class="input-form">
+                            <input required form="text" name="salary" id="salary" class="input-form" placeholder="RAL" maxlength="15">
 
                             <br><br><br><br>
                             <div id="radio-one">
-                                <input type="radio" id="STAGISTA" name="role" value="STAGISTA">
+                                <input required type="radio" id="STAGISTA" name="role" value="STAGISTA" onchange="disableRest()">
                                     <label class="radios one" for="STAGISTA"><span class="text-in-radios">STAGISTA</span></label>
-                                <input type="radio" id="DIPENDENTE" name="role" value="DIPENDENTE">
+                                <input required type="radio" id="DIPENDENTE" name="role" value="DIPENDENTE" onchange="enableAllButStage()"> 
                                     <label class="radios two" for="DIPENDENTE"><span class="text-in-radios">DIPENDENTE</span></label>
-                                <input type="radio" id="MANAGER" name="role" value="MANAGER">
+                                <input required type="radio" id="MANAGER" name="role" value="MANAGER" onchange="enableAllButStage()">
                                     <label class="radios three" for="MANAGER"><span class="text-in-radios">MANAGER</span></label>
-                                <input type="radio" id="DIRETTORE" name="role" value="DIRETTORE">
+                                <input required type="radio" id="DIRETTORE" name="role" value="DIRETTORE" onchange="enableAllButStage()">
                                     <label class="radios four" for="DIRETTORE"><span class="text-in-radios">DIRETTORE</span></label>
                             </div>
                             <br><br><br><br>
                             <div id="radio-two">
-                                <input type="radio" id="STAGE" name="contract" value="STAGE" class="contract">
+                                <input required type="radio" id="STAGE" name="contract" value="STAGE" class="contract">
                                     <label class="radion one" for="STAGE"><span class="text-in-radios">STAGE</span></label>
-                                <input type="radio" id="PARTTIME" name="contract" value="PARTTIME">
+                                <input required type="radio" id="PARTTIME" name="contract" value="PARTTIME">
                                     <label class="radion two" for="PARTTIME"><span class="text-in-radios">PART TIME</span></label>
-                                <input type="radio" id="DETERMINATO" name="contract" value="DETERMINATO">
+                                <input required type="radio" id="DETERMINATO" name="contract" value="DETERMINATO">
                                     <label class="radion three" for="DETERMINATO"><span class="text-in-radios">DETERMINATO</span></label>
-                                <input type="radio" id="INDETERMINATO" name="contract" value="INDETERMINATO">
+                                <input required type="radio" id="INDETERMINATO" name="contract" value="INDETERMINATO">
                                     <label class="radion four"for="INDETERMINATO"><span class="text-in-radios">INDETERMINATO</span></label>
                             </div>
 
@@ -129,6 +129,47 @@
                 checkCookie();
 
                 pressReadButton();
+
+                uncheckAll();
+            }
+
+            function uncheckAll(){
+
+                uncheckRoles();
+
+                uncheckContracts();
+            }
+
+            function uncheckRoles() {
+
+                let x = document.getElementById("STAGISTA");
+                x.checked = false;
+
+                x = document.getElementById("DIPENDENTE");
+                x.checked = false;
+
+                x = document.getElementById("MANAGER");
+                x.checked = false;
+
+                x = document.getElementById("DIRETTORE");
+                x.checked = false;
+
+            }
+
+            function uncheckContracts() {
+
+                let x = document.getElementById("STAGE");
+                x.checked = false;
+
+                x = document.getElementById("PARTTIME");
+                x.checked = false;
+
+                x = document.getElementById("DETERMINATO");
+                x.checked = false;
+
+                x = document.getElementById("INDETERMINATO");
+                x.checked = false;
+
             }
 
             function toggleDarkTheme(){
@@ -247,13 +288,9 @@
                                     "\t\"role\": \"" + role + "\",\n" +
                                     "\t\"salary\":" + document.querySelector('#salary').value + ",\n" +
                                     "\t\"contract\": \"" + contract + "\",\n" +
-                                    "\t\"competenceList\": [\n" +
-                                    "\t\t\"Competence1\",\n" +
-                                    "\t\t\"Competence2\",\n" +
-                                    "\t\t\"Competence3\"\n" +
+                                    "\t\"competenceList\": [\n" + competences +
                                     "\t]\n" +
                                 "}";
-                    
 
                     xhr.send(data);
 
@@ -273,23 +310,69 @@
             function checkCheckboxes(first,second,third) {
 
                 let result = "";
+                let itemfound = 0;
 
                 let ele = document.getElementById(first);
-                    if (ele.checked)
-                        result = result = "\t\tConosce l'inglese\n"
+                    if (ele.checked) {
+                        result = result + "\t\t\"Conosce l'inglese\""
+                        itemfound ++;
+                    }
 
                 ele = document.getElementById(second);
                     if (ele.checked)
-                        result = result = "\t\tPatente B\n"
+                        if ( itemfound > 0 )
+                            result = result + ",\n\t\t\"Patente B\"\n"
+                        else { 
+                            result = result + "\t\t\"Patente B\"\n"
+                            itemfound ++;
+                        }
 
                 ele = document.getElementById(third);
                     if (ele.checked)
-                        result = result = "\t\tEsperienza decennale\n"
+                        if ( itemfound > 0 )
+                            result = result + ",\n\t\t\"Esperienza Decennale\"\n"
+                        else{ 
+                            result = result + "\t\t\"Esperienza Decennale\"\n"
+                            itemfound ++;
+                        }
+
+                return result;
                 
             }
 
-            function delay(time) {
-                return new Promise(resolve => setTimeout(resolve, time));
+            function disableRest(){
+
+                let x = document.getElementById("STAGE");
+                x.disabled = false;
+                x.classList.toggle("disabled");
+
+                x = document.getElementById("PARTTIME");
+                x.disabled = true;
+
+                x = document.getElementById("DETERMINATO");
+                x.disabled = true;
+
+                x = document.getElementById("INDETERMINATO");
+                x.disabled = true;
+
+                uncheckContracts()
+            }
+
+            function enableAllButStage(){
+
+                let x = document.getElementById("STAGE");
+                x.disabled = true;
+
+                x = document.getElementById("PARTTIME");
+                x.disabled = false;
+
+                x = document.getElementById("DETERMINATO");
+                x.disabled = false;
+
+                x = document.getElementById("INDETERMINATO");
+                x.disabled = false;
+
+                uncheckContracts()
             }
 
     </script>
