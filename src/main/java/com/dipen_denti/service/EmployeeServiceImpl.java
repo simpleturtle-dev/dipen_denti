@@ -33,6 +33,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         if ( isNotFilled(employee) )
             return "Devi riempire tutti i campi obbligatori";
 
+        // Capitalizing role and contract for easier controls
+        employee.setRole(employee.getRole().toUpperCase());
+        employee.setContract(employee.getContract().toUpperCase());
+
         // Check if employee object has all the required fields correctly compiled
         String result = isNotCorrectlyFilled(employee);
         if ( !result.equals("clear") )
