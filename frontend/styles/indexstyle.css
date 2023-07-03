@@ -1,22 +1,29 @@
+/* Usato per regolarmi sulla posizione e dimensione degli elementi */
 /* *{
     outline: 1px solid red;
 } */
 
+/* Animazione usata per primo avvio sito, per dare un animazione in entrata */
 @keyframes drop-in-from-below {
   0%   {top:150px; opacity: 0;}
   100% {top:0px; opacity: 1;}
 }
 
+/* Animazione usata per praticamente tutti i div per dare un esperienza
+    piú morbida */
 @keyframes drop-in-from-below-margin {
   0%   {margin-top:170px; opacity: 0;}
   100% {margin-top: 15px; opacity: 1;}
 }
 
+/* Animazione usata per elementi del footer */
 @keyframes go-right {
   0%   {}
   100% {padding-left: 500px; opacity: 0.5;background-color: transparent;}
 }
 
+/* Animazione usata in hover degli elementi del fotter 
+per far diventare le info visibili  */
 @keyframes make-white {
   0%   {}
   100% {color:white}
@@ -27,6 +34,7 @@ body{
     margin: 0;
     padding: 0;
 
+    /* Variabili per gestire i colori in cambio di tema pagina  */
     --main-tile-background: rgba( 0, 0, 0, 0.2);
     --tiles-background: rgb(228, 228, 228, 0.95);
     --footer-color: rgba( 85, 153, 254, 0.8);
@@ -34,36 +42,44 @@ body{
     --color: black;
     --inverted-color: white;
 
+    /* Grazie a questi tag e valori, lo sfondo rimane fisso a prescindere
+        del movimento della pagina  */
     background-image: url("../imgs/city-5409669_1280.jpg");
     background-repeat: no-repeat;
-    /* background-position: center; */
     background-size: cover;
     position: sticky;
 
     font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Classe del body quando il tema scuro é selezionato  */
 body.dark{
   
     color:white;
 
+    /* Variabili per gestire i colori in cambio di tema pagina  */
     --color: white;
     --inverted-color: black;
     --tiles-background: rgba(53, 54, 58, 0.95);
     --footer-color: rgba( 50, 43, 121, 0.6);
     --footer-tiles-color: rgb(158, 0, 158);
 
+    /* Cambio sfondo da abbinare a tema scuro  */
     background-image: url("../imgs/night-city-background-with-many-building-tall-vector-30502030.jpg");
 }
 
+/* Container principale che contiene tutti gli elementi e div
+    della pagina  */
 main{
     position: relative;
     text-align: center;
 
+    /* display grid per rendere piú responsiva la pagina  */
     display:grid;
 
     font-size:22px;
-
+    
+    /* Le sidebar saranno invisibili all'utente  */
     grid-template-areas:
         "side   topbar  sidebar"
         "side   content sidebar"
@@ -74,11 +90,12 @@ main{
     align-items: center;
     justify-items: center;
 
-    /* row-gap: 30px; */
-
+    /* Animazione per far comparire dal basso il sito  */
     animation: drop-in-from-below 0.9s;
 }
 
+/* Banner del sito ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::  */
+/* Forma, colore e dimensione banner  */
 header{
     grid-area: topbar;
     text-align: left;
@@ -93,6 +110,7 @@ header{
     border-bottom-right-radius: 50px;
 }
 
+/* Forma, colore e dimensione logo dipen denti  */
 .logo-banner{
     position: relative;
     left: 100px;
@@ -100,729 +118,920 @@ header{
     border-radius: 50%;
 }
 
-.searchbar{
-
-    position: relative;
-    bottom:45px;
-    left:15%;
-    width:800px;
-    height: 40px;
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
-    border-top-right-radius: 50px;
-    border-bottom-right-radius: 50px;
-    padding-left: 20px;
-    font-size: 20px;
-    border: 1px solid rgb(153, 153, 153);
-    max-width: 50%;
-    min-width: 50%;
-}
-
-.lens{
-    position: relative;
-    bottom:33px;
-    width:20px;
-    background-color: white;
-    padding:9px;
-    left: 9%;
-    border-radius: 40%;
-}
-
+/* Switch per toggle del tema scuro\tema chiaro  */
+/* Posizione e dimensione dello switch  */
 .switch {
   position: relative;
+
   display: inline-block;
+
   width: 60px;
   height: 34px;
+
   bottom:50px;
   left:70%;
     
 }
-  
 
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-  
+/* Posizione iniziale e colore dello slider  */
 .slider {
   position: absolute;
+
   cursor: pointer;
+
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
 }
-  
+
+/* Posizione finale e colore dello slider  */
 .slider:before {
   position: absolute;
+
   content: "";
+
   height: 26px;
   width: 26px;
+
   left: 4px;
   bottom: 4px;
+
   background-color: white;
+
+  /* Tempo che occorre allo slider per passare da un lato all'altro  */
   -webkit-transition: .4s;
   transition: .4s;
 }
-  
+
+/* Colore dello switch a tema scuro attivo  */
 input:checked + .slider {
   background-color: #003967;
 }
-  
-input:focus + .slider {
-  box-shadow: 0 0 1px #003967;
-}
-  
+
+/* Lo slider va alla posizione piú a destra quando checked  */
 input:checked + .slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
-  
+
+/* Rende lo slider esterno rotondo  */
 .slider.round {
   border-radius: 34px;
 }
-  
+
+/* Rende lo slider interno rotondo  */
 .slider.round:before {
   border-radius: 50%;
 }
 
+/* Dimensione dell'icona del sole e della luna */
 .moon, .sun{
   position: relative;
+
   width:40px;
   bottom:35px;
+
+  /* Tempo che ci mettono a svanire a cambio di tema */
   transition: 300ms;
 }
 
+/* Posizone icone sole e luna */
 .moon{ left:70.5%; }
 .sun{ left: 69.5%; }
+
+/* Come agiscono icone sole e luna quando su di loro viene applicata la 
+    classe transparent */
 .moon.transparent { opacity: 0;}
 .sun.transparent { opacity: 0;}
 
+/* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  */
+
+/* Contenuto del sito :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::  */
+/* Tutto ció che é sotto l'header é in content ( tranne il footer )  */
 content{
+    /* Disposta una griglia dentro l'area content della griglia del main  */
     grid-area: content;
     display: grid;
-    width:1300px;
-    height: 1800px;
-    background-color: var(--main-tile-background);
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
-    border-top-right-radius: 50px;
-    border-bottom-right-radius: 50px;
-    padding:50px;
     grid-template-areas:
         "buttons"
         "interface";
     grid-template-rows: 23% 77%;
+
+    /* Dimensione corpo del sito  */
+    width:1300px;
+    height: 1800px;
+
+    /* Dimensione corpo del sito  */
+    background-color: var(--main-tile-background);
+
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+
+    padding:50px;
+
 }
 
+/* Container che contiene i bottoni "LEGGI", ">30k" e "CREA"  */
 .buttons-container{
 
+  /* Disposta una griglia dentro il container di bottoni della griglia del content  */
   grid-area: buttons;
   display: grid;
   grid-template-areas:
         "1  2";
+  
   background-color: var(--tiles-background);
+
   width:98%;
   height:80%;
+
   border-top-left-radius: 50px;
   border-bottom-left-radius: 50px;
   border-top-right-radius: 50px;
   border-bottom-right-radius: 50px;
+
   margin-left: 20px;
 }
 
+/* Dimensione e forma dei bottoni  */
 .read-button, .create-button, .over-thirty-button{
   position: relative;
+
   width:45%;
-  height: 80%;
+
   left:160px;
   top:10px;
+
   border-top-left-radius: 50px;
   border-bottom-left-radius: 50px;
   border-top-right-radius: 50px;
   border-bottom-right-radius: 50px;
+
   font-size:50px;
+
+  /* Tempo che ci mettono a diventare colorati e a spegnersi quando
+      disabilitati e abilitati  */
   transition: 200ms;
+
   color:var(--color);
 }
 
-
-
+/* Colore e forma bottone "LEGGI"  */
 .read-button{
-  border: 15px solid rgb(49, 199, 94);
-  background-color: rgb(62, 251, 119);
-  color: black;
+  height:250px;
+
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 0px;
-  height:250px;
+
+  border: 15px solid rgb(49, 199, 94);
+  background-color: rgb(62, 251, 119);
+
+  color: black;
 }
 
+/* Bottone "LEGGI" su hover */
 .read-button:hover{
   background-color: rgb(59, 216, 106);
+
   color:black;
 }
 
-.read-button:active{
-  background-color: rgb(44, 174, 83);
-  transition: 0ms;
-}
-
+/* Bottone "LEGGI" quando disabilitato */
 .read-button:disabled{
   border: 15px solid rgba(197, 255, 215, 0.448);
+
   background-color: rgba(197, 255, 215, 0.448);
+
   color:black;
+
   opacity: 0.3;
 }
 
-
+/* Colore bottone "CREA" */
 .create-button{
-  border: 15px solid rgb(31, 163, 207);
-  background-color: rgb(37, 199, 253);
-  color: black;
   height:300px;
+
+  border: 15px solid rgb(31, 163, 207);
+
+  background-color: rgb(37, 199, 253);
+
+  color: black;
 }
 
+/* Bottone "CREA" su hover */
 .create-button:hover{
   background-color: rgb(39, 185, 234);
+
   color:black;
 }
 
-.create-button:active{
-  background-color: rgb(28, 141, 179);
-  transition: 0ms;
-}
-
+/* Bottone "CREA" quando disabilitato */
 .create-button:disabled{
   border: 15px solid rgba(161, 231, 255, 0.423);
+
   background-color: rgba(161, 231, 255, 0.423);
+
   color:black;
+
   opacity: 0.3;
 }
 
+/* Posizione e forma del bottone ">30k" */
 .over-thirty-button{
   top:-40px;
   bottom:500px;
+
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
+
   font-size: 30px;
+
   padding-bottom:10px;
+
   border: 15px solid rgb(49, 199, 94);
   border-top: 0px;
+
   background-color: rgb(62, 251, 119);
+
   color: black;
 }
 
+/* Bottone ">30k" su hover */
 .over-thirty-button:hover{
   background-color: rgb(59, 216, 106);
+
   color:black;
 }
 
-
-.over-thirty-button:active{
-  background-color: rgb(44, 174, 83);
-  transition: 0ms;
-}
-
+/* Bottone ">30k" quando disabilitato */
 .over-thirty-button:disabled{
   border: 15px solid rgba(197, 255, 215, 0.448);
+
   background-color: rgba(197, 255, 215, 0.448);
+
   color:black;
+
   opacity: 0.3;
 }
 
+/* Container che contiene i div della sezione di creazione, lettura e aggiornamento  */
+/* Forma, posizione e colore del cointainer delle interfaccie  */
 .interface-container{
   grid-area: interface;
+
   background-color: var(--tiles-background);
+
   width:98%;
   height:100%;
+
   border-top-left-radius: 50px;
   border-bottom-left-radius: 50px;
   border-top-right-radius: 50px;
   border-bottom-right-radius: 50px;
+
   margin-top: -40px;
   margin-left: 20px;
 }
 
+/* Animazione per l'interfaccia di aggiornamento  */
 .update-interface{
   margin-top: 15px;
+
   animation: drop-in-from-below-margin 0.9s;
 }
 
+/* Animazione, posizione e dimensione per l'interfaccia di aggiornamento  */
 .create-interface{
+  height: 90%;
+  
   margin:50px;
   margin-top: 15px;
-  height: 90%;
+
   animation: drop-in-from-below-margin 0.9s;
 }
 
+/* Forma, dimensione, colore e posizione degli input  */
 .input-form{
-  width:80%;
   position: relative;
+
+  width:80%;
+  
+  line-height: 50px;
+
+  padding-left: 20px;
+  padding-right: 20px;
+
+  margin-top:45px;
+
   border-top-left-radius: 50px;
   border-bottom-left-radius: 50px;
   border-top-right-radius: 50px;
   border-bottom-right-radius: 50px;
-  line-height: 50px;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-top:45px;
+  
   font-size:25px;
+
   background-color: var(--tiles-background);
+
   border: 2px solid var(--color);
+
   color: var(--color);
 }
 
+/* Aggiunto colore a form selezionato per dare piú chiarezza durante l'utilizzo  */
 .input-form:focus{
   outline:0px;
+
   border: 2px solid rgb(61, 142, 255);
+  /* Quanto tempo ci mette il bordo a colorarsi  */
   transition: 200ms;
 }
 
+/* Personalizzazione specifica degli input di nascita di creazione e aggionamento
+   per rendere la pagina degli input piú bilanciata */
 .input-form[id="birth"], .input-form[id="birthU"]{
   width:65%;
   margin-left:20px;
 }
 
+/* Aspetto a form di taxCode disabilitato (fatto in caso di update)  */
 .input-form[id="taxCodeU"]{
   border: 2px solid gray;
   color: gray;
 }
 
+/* Posizione, colore e dimensione dei div che sostituiscono i bottoni di input radio
+   dei ruoli  */
 .radios{
   position: absolute;
-  background-color: transparent;
+
   width: 150px;
   height: 150px;
+
+  background-color: transparent;
+
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
-  color:white;
+
   user-select: none;
+
   color: var(--color);
 }
 
+/* Posizione e colore del div di stagista */
 .radios.one{
   transform: translateX(-350%);
+
   border: 3px solid rgb(122, 0, 0);
+
   color: var(--color);
 }
 
+/* Posizione e colore del div di dipendente */
 .radios.two{
   transform: translateX(-150%);
+
   border: 3px solid rgb(132, 101, 33);
+
   color: var(--color);
 }
 
+/* Posizione e colore del div di manager */
 .radios.three{
   transform: translateX(50%);
+
   border: 3px solid rgb(0, 127, 0);
+
   color: var(--color);
 }
 
+/* Posizione e colore del div di direttore */
 .radios.four{
   transform: translateX(250%);
+
   border: 3px solid rgb(0, 165, 235);
+
   color: var(--color);
 }
 
+/* Input "div" su hover */
 .radios:hover{
   background-color: rgba(49, 115, 207, 0.232);  
 }
 
+/* Rende invisibili gli effettivi bottoni di input radio */
 #radio-one input[type=radio]{
   display: none;
 }
 
+/* Il bottone stagista si riempe di colore quando selezionato */
 #radio-one input[type=radio]:checked + .radios.one{
   background-color: rgb(122, 0, 0);
+
   color: white;
 }
 
+/* Il bottone dipendente si riempe di colore quando selezionato */
 #radio-one input[type=radio]:checked + .radios.two{
   background-color: rgb(132, 101, 33);
+
   color: white;
 }
 
+/* Il bottone manager si riempe di colore quando selezionato */
 #radio-one input[type=radio]:checked + .radios.three{
   background-color: rgb(0, 127, 0);
   color: white;
 }
 
+/* Il bottone direttore si riempe di colore quando selezionato */
 #radio-one input[type=radio]:checked + .radios.four{
   background-color: rgb(0, 165, 235);
   color: white;
 }
 
-
+/* Posizione, colore e dimensione dei div che sostituiscono i bottoni di input radio
+   dei contratti  */
 .radion{
   position: absolute;
-  background-color: transparent;
+
+  margin-top:60px;
+
   width: 150px;
   height: 150px;
+
+  background-color: transparent;
+
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
-  color:white;
+
   user-select: none;
+
   color: var(--color);
+
   font-size: 18px;
-  margin-top:60px;
 }
 
+/* Posizione e colore del div di stage */
 .radion.one{
   transform: translateX(-350%);
+
   border: 3px solid rgb(122, 0, 0);
+
   color: var(--color);
 }
 
+/* Posizione e colore del div di part time */
 .radion.two{
   transform: translateX(-150%);
+
   border: 3px solid rgb(132, 101, 33);
+
   color: var(--color);
 }
 
+/* Posizione e colore del div di determinato */
 .radion.three{
   transform: translateX(50%);
+
   border: 3px solid rgb(0, 127, 0);
+
   color: var(--color);
 }
 
+/* Posizione e colore del div di indeterminato */
 .radion.four{
   transform: translateX(250%);
+
   border: 3px solid rgb(0, 165, 235);
+
   color: var(--color);
 }
 
+/* Input "div" su hover */
 .radion:hover{
   background-color: rgba(49, 115, 207, 0.232);  
 }
 
+/* Rende invisibili gli effettivi bottoni di input radio */
 #radio-two input[type=radio]{
   display: none;
 }
 
+/* Il bottone stage si riempe di colore quando selezionato */
 #radio-two input[type=radio]:checked + .radion.one{
   background-color: rgb(122, 0, 0);
+
   color: white;
 }
 
+/* Il bottone stage quando disabilitato */
 #radio-two input[type=radio]:disabled + .radion.one{
   opacity: 0.4;
 }
 
+/* Il bottone part time si riempe di colore quando selezionato */
 #radio-two input[type=radio]:checked + .radion.two{
   background-color: rgb(132, 101, 33);
+
   color: white;
 }
 
+/* Il bottone part time quando disabilitato */
 #radio-two input[type=radio]:disabled + .radion.two{
   opacity: 0.4;
 }
 
+/* Il bottone determinato si riempe di colore quando selezionato */
 #radio-two input[type=radio]:checked + .radion.three{
   background-color: rgb(0, 127, 0);
+
   color: white;
 }
 
+/* Il bottone determinato quando disabilitato */
 #radio-two input[type=radio]:disabled + .radion.three{
   opacity: 0.4;
 }
 
+/* Il bottone indeterminato si riempe di colore quando selezionato */
 #radio-two input[type=radio]:checked + .radion.four{
   background-color: rgb(0, 165, 235);
+
   color: white;
 }
 
+/* Il bottone indeterminato quando disabilitato */
 #radio-two input[type=radio]:disabled + .radion.four{
   opacity: 0.4;
 }
 
-.text-in-radios{
-  position: relative;
-  top:55px;
-}
-
-
+/* Posizione, colore e dimensione dei div che sostituiscono i bottoni di input checkbox
+   delle competenze  */
 .check{
   position: absolute;
-  background-color: transparent;
+
+  margin-top:150px;
+
   width: 150px;
   height: 150px;
+
+  background-color: transparent;
+
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
+
   user-select: none;
+
   border: 3px solid rgb(61, 142, 255);
+
   color: var(--color);
-  margin-top:150px;
 }
 
+/* Posizione della checkbox di "Conosce l'inglese"  */
 .check.one{
   transform: translateX(-250%);
 }
 
+/* Posizione della checkbox di "Patente B"  */
 .check.two{
   transform: translateX(-50%);
 }
 
+/* Posizione della checkbox di "Esperienza Decennale"  */
 .check.three{
   transform: translateX(150%);
 }
 
+/* I div di checkbox input su hover  */
 .check:hover{
   background-color: rgb(49, 115, 207);  
 }
 
+/* Rende invisibili gli effettivi bottoni degli input checkbox  */
 #checkboxes input[type=checkbox]{
   display: none;
 }
 
+/* I div input checkbox selezionati si riempono di colore */
 #checkboxes input[type=checkbox]:checked + .check{
   background-color: rgb(61, 142, 255);
+
   color: white;
 }
 
-.text-in-check{
+/* Posizione dei testi nei div di input */
+.text-in-radios, .text-in-check{
   position: relative;
   top:45px;
 }
 
+/* Posizione e  dimensione dei bottoni 3d CREA e AGGIORNA */
 .btn3d {
+
 	position: relative;
+
 	top: -6px;
-	border: 0;
-	transition: all 40ms linear;
-	margin-top: 10px;
+
+  margin-top:150px;
+	margin-right: 2px;
 	margin-bottom: 10px;
 	margin-left: 2px;
-	margin-right: 2px;
-  color:white;
+  
   width:180px;
   height:60px;
+
+	border: 0;
+
   border-radius: 10px;
+
+  color:white;
+
   font-size: 25px;
   font-weight: bold;
+
+  /* Contorno testo in bottone */
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: green;
-  margin-top:150px;
+
+  /* Tempo pressione bottone */
+	transition: all 40ms linear;
 }
 
-.btn3d:active:focus,
-.btn3d:focus:hover,
-.btn3d:focus {
-	-moz-outline-style: none;
-	outline: medium none;
-  outline-style: none;
-}
-
+/* Il bottone durante l'animazione parte dall'alto */
 .btn3d:active,
 .btn3d.active {
 	top: 2px;
 }
 
+/* Colore bottone CREA */
 .btn3d.btn-success {
 	box-shadow: 0 0 0 1px #31c300 inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 8px 0 0 #5eb924, 0 8px 8px 1px rgba(0, 0, 0, 0.5);
+
 	background-color: #78d739;
 }
 
+/* Il bottone CREA alla pressione si abbassa */
 .btn3d.btn-success:active,
 .btn3d.btn-success.active {
 	box-shadow: 0 0 0 1px #30cd00 inset, 0 0 0 1px rgba(255, 255, 255, 0.15) inset, 0 1px 3px 1px rgba(0, 0, 0, 0.3);
-	background-color: #78d739;
+	
+  background-color: #78d739;
 }
 
+/* Colore bottone AGGIORNA */
 .btn3d.btn-info {
 	box-shadow: 0 0 0 1px #00a5c3 inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 8px 0 0 #348FD2, 0 8px 8px 1px rgba(0, 0, 0, 0.5);
-	background-color: #39B3D7;
+	
+  background-color: #39B3D7;
 }
 
+/* Il bottone AGGIORNA alla pressione si abbassa */
 .btn3d.btn-info:active,
 .btn3d.btn-info.active {
 	box-shadow: 0 0 0 1px #00a5c3 inset, 0 0 0 1px rgba(255, 255, 255, 0.15) inset, 0 1px 3px 1px rgba(0, 0, 0, 0.3);
-	background-color: #39B3D7;
+	
+  background-color: #39B3D7;
 }
 
+/* Posizione e animazione di entrata della tabella di lettura totale */
+.employee-table{
+  margin-top: 15px;
+
+  padding:50px;
+
+  animation: drop-in-from-below-margin 0.9s;
+}
+
+/* Posizione e animazione di entrata della tabella di lettura >30k */
+.employee-table-over-30k{
+  margin-top: 15px;
+
+  padding:50px;
+
+  animation: drop-in-from-below-margin 0.9s;
+}
+
+/* Stile delle tabelle */
+table, th, td {
+  border: 1px solid var(--color);
+  border-collapse: collapse; 
+
+  font-size:10px;
+  
+}
+
+/* Dimensione della colonna nome */
+table th:nth-child(1) {  
+  width:90px;
+  
+  font-size: 8px;
+}
+
+/* Dimensione della colonna cognome */
+table th:nth-child(2) {  
+  width:90px;
+
+  font-size: 8px;
+}
+
+/* Dimensione della colonna codice fiscale */
+table th:nth-child(3) {  
+  width:110px;
+
+  font-size: 8px;
+}
+
+/* Dimensione della colonna ruolo */
+table th:nth-child(5) {  
+  width:60px;
+
+  font-size: 8px;
+}
+
+/* Dimensione della colonna RAL */
+table th:nth-child(6) {  
+  width:60px;
+
+  font-size: 8px;
+}
+
+/* Dimensione della colonna contratto */
+table th:nth-child(7) {  
+  width:70px;
+
+  font-size: 8px;
+}
+
+/* Dimensione della colonna competenze */
+table td:nth-child(8) {  
+  width:190px;
+
+  font-size: 8px;
+}
+
+/* Dimensione e colore della colonna aggiorna */
+table th:nth-child(9){  
+  width:80px;
+
+  background-color: rgb(0, 136, 136);
+
+  color: white;
+}
+
+/* Dimensione e colore della colonna cancella */
+table th:nth-child(10){  
+  width:80px;
+
+  background-color: rgb(154, 1, 1);
+
+  color: white;
+
+}
+
+/* Hover della colonna aggiorna */
+table td:nth-child(9):hover{  
+  background-color: rgba(0, 136, 136, 0.471);
+}
+
+/* Hover della colonna cancella */
+table td:nth-child(10):hover{  
+  background-color: rgba(154, 1, 1, 0.474);
+}
+
+/* Padding celle */
+td, th {
+  padding: 10px;
+}
+
+/* Colore e dimensione del bottone aggiorna */
+.update-button{
+  width:80%;
+
+  background-color: aqua;
+}
+
+/* Colore e dimensione del bottone cancella */
+.delete-button{
+  width:80%;
+  
+  background-color: red; 
+}
+/* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; */
+
+/* FOOTER :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+/* Dimensione e colore del footer */
 footer{
-  width: 92vw;
   grid-area: footer;
+
+  /* Disposizione di una griglia dentro footer per gestire meglio la posizione 
+      delle 3 info */
+  display: grid;
+  grid-template-areas:
+      "tech  teaml  about";
+
+  width: 92vw;
   height: 200px;
+
+  padding:50px;
+
   background-color: var(--footer-color);
+
   border-top-left-radius: 50px;
   border-bottom-left-radius: 50px;
   border-top-right-radius: 50px;
   border-bottom-right-radius: 50px;
-  color: white;
-  padding:50px;
-  display: grid;
 
-  grid-template-areas:
-      "tech  teaml  about";
+  color: white;
 }
 
+/* Dimensione e colore delle info supporto tecnico, team leader e creatore sito */
 .tech-support, .team-leader, .about{
+  margin: 20px;
+
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
-  margin: 20px;
+
   background-color: var(--footer-tiles-color);
+
   color:transparent;
 }
 
-.tech-support:hover, .team-leader:hover, .about:hover{
-  animation: make-white 2.2s forwards;
-}
-
+/* Dimensione e colore sfondo delle icone supporto tecnico e team leader */
 .phone, .leader{
   position:sticky;
+
   width:150px;
+
   padding-left:25%;
   padding-right:25%;
+
   background-color: var(--footer-tiles-color);
 }
 
+/* Dimensione e colore sfondo dell' icona creatore sito */
 .info{
   position:sticky;
+
   width:130px;
+
   margin-top:10px;
+
   padding-left:25%;
   padding-right:25%;
+
   background-color: var(--footer-tiles-color);
 
 }
 
+/* Scansa le icone e le rende semitrasparenti su hover */
 .phone:hover, .leader:hover, .info:hover{
   animation: go-right 0.9s forwards;
 }
 
+/* Rende le scritte trasparenti dietro le icone bianche e visibili su hover */
+.tech-support:hover, .team-leader:hover, .about:hover{
+  animation: make-white 2.2s forwards;
+}
+
+/* Area griglia footer supporto tecnico */
 .tech-support{
   grid-area: tech;
 }
 
+/* Area griglia footer team leader */
 .team-leader{
   grid-area: teaml;
 }
 
+/* Area griglia footer creatore sito */
 .about{
   grid-area: about;
   
 }
 
+/* Posizione testo */
 .description{
-
   position: absolute;
-  text-align: left;
-  font-size: 30px;
+
   margin-left: 150px;
   margin-top: 40px;
-}
 
-.employee-table{
-  margin-top: 15px;
-  padding:50px;
-  animation: drop-in-from-below-margin 0.9s;
-}
+  text-align: left;
 
-.employee-table-over-30k{
-  margin-top: 15px;
-  padding:50px;
-  animation: drop-in-from-below-margin 0.9s;
+  font-size: 30px;
 }
-
-table, th, td {
-  border: 1px solid var(--color);
-  border-collapse: collapse; 
-  font-size:10px;
-  
-}
-
-table th:nth-child(1) {  
-  font-size: 8px;
-  width:90px;
-}
-
-table th:nth-child(2) {  
-  font-size: 8px;
-  width:90px;
-}
-
-table th:nth-child(3) {  
-  font-size: 8px;
-  width:110px;
-}
-
-table th:nth-child(5) {  
-  font-size: 8px;
-  width:60px;
-}
-
-table th:nth-child(6) {  
-  font-size: 8px;
-  width:60px;
-}
-
-table th:nth-child(7) {  
-  font-size: 8px;
-  width:70px;
-}
-
-table th:nth-child(8) {  
-  font-size: 8px;
-  width:200px;
-}
-
-table td:nth-child(8) {  
-  width:190px;
-  font-size: 8px;
-}
-
-table th:nth-child(9), table th:nth-child(10){  
-  width:80px;
-}
-
-table th:nth-child(9){  
-  width:80px;
-  background-color: rgb(0, 136, 136);
-  color: white;
-}
-
-table th:nth-child(10){  
-  width:80px;
-  background-color: rgb(154, 1, 1);
-  color: white;
-
-}
-
-table td:nth-child(9):hover{  
-  background-color: rgba(0, 136, 136, 0.471);
-}
-
-table td:nth-child(10):hover{  
-  background-color: rgba(154, 1, 1, 0.474);
-}
-
-td, th {
-  padding: 10px;
-}
-
-.delete-button{
-  background-color: red;
-  width:80%;
-}
-
-.update-button{
-  background-color: aqua;
-  width:80%;
-}
-
-#taxCode:disabled{
-  opacity:0.4;
-}
+/* ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; */
