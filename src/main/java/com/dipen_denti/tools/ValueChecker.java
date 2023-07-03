@@ -8,13 +8,14 @@ import java.util.regex.Pattern;
 
 import lombok.NoArgsConstructor;
 
-// * Class that checks genral things in the most universal way possible, so that the
-// * application is easy extendable
+// * Ho creato questa classe per rendere questi tipi di controlli quanto piú generici
+// * possibili, cosí che il programma é piú facile da estendere
 @NoArgsConstructor
 public class ValueChecker {
 
-    // Check if given strings have special characters ( made universal by recieving
-    // a list of strings instead of fixed number of strings )
+    // Controlla se delle stringhe date in paramentro hanno caratteri speciali 
+    // ( fatto in maniera universale, dato che riceve in input una lista e non un 
+    // numero fisso di stringhe) 
     public boolean checkForSpecialCharacters ( List < String > strings ) {
 
         Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
@@ -26,8 +27,10 @@ public class ValueChecker {
         return false;
     }
 
-    // Check if given strings have special characters and numbers ( made universal by 
-    // recieving a list of strings instead of fixed number of strings )
+
+    // Controlla se delle stringhe date in paramentro hanno caratteri speciali 
+    // o numeri ( fatto in maniera universale, dato che riceve in input una lista 
+    // e non un numero fisso di stringhe) 
     public boolean checkForSpecialCharactersAndNumbers ( List < String > strings ) {
 
         Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
@@ -45,7 +48,7 @@ public class ValueChecker {
         return false;
     }
 
-    // Check if given date is at least eighteen from now
+    // Controlla se la data in input é minore di 18 anni fa
     public boolean checkIfPersonIsEighteen ( Date date ){
 
         LocalDate birth = date.toLocalDate();

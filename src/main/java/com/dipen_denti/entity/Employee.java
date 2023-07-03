@@ -28,6 +28,8 @@ public class Employee {
     @Column ( length = 18, nullable = false )
     String surname;
 
+    // ? Usato taxCode (Codice fiscale) come 
+    // ? chiave primaria perché univoco per tutti
     @Id
     @Column ( length = 16 )
     String taxCode;
@@ -50,7 +52,7 @@ public class Employee {
     List <String> competenceList;
 }
 
-/*
+/*  EMPLOYEE JSON
     * {
         "name": null,
         "surname": null,

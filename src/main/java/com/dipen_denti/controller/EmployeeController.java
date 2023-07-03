@@ -30,11 +30,15 @@ public class EmployeeController {
     }
 
     // CREATE ::::::::::::::::::::::::::::::::::::::
+    // ? Metodo per creare nuovi dipendenti nel database
     @PostMapping ( "/hire-employee" )
     public ResponseEntity < String > hireemployee ( @RequestBody Employee employee) {
 
         String result = employeeService.createEmployee(employee);
 
+        // In base al risultato ricevuto da employeeService.createEmployee(employee)
+        // controllo il codice di risposta http e mando un messaggio per chiarire
+        // che tipo di risultato c'é stato
         if ( !result.equals( "Dipendente salvato" ))
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body( result );
 
@@ -45,6 +49,7 @@ public class EmployeeController {
 
     
     // READ ::::::::::::::::::::::::::::::::::::::::
+    // ? Metodo per leggere tutti i dipendenti nel database
     @GetMapping ( "/all-employees" )
     public ResponseEntity < List < Employee > > allemployees () {
         
@@ -52,6 +57,7 @@ public class EmployeeController {
     }
     
     @GetMapping ( "/employee/{taxCode}" )
+    // ? Metodo per leggere un dipendente in specifico nel database
     public ResponseEntity < Employee > specificemployee ( @PathVariable String taxCode ) {
         
         Employee employee = employeeService.findEmployee(taxCode);
@@ -63,6 +69,8 @@ public class EmployeeController {
     }
     
     @GetMapping ( "/employees/{salary}k" )
+    // ? Metodo per leggere tutti i dipendenti che hanno un ral superiore a
+    // ? {salary}k
     public ResponseEntity < List < Employee > > 
      allEmployeesWithBigRal ( @PathVariable float salary ) {
         
@@ -74,12 +82,16 @@ public class EmployeeController {
 
 
     // UPDATE ::::::::::::::::::::::::::::::::::::::
+    // ? Metodo per aggiornare un {taxCode} dipendente
     @PutMapping ( "/update/{taxCode}" )
     public ResponseEntity < String > modifyemployee ( @PathVariable String taxCode,
         @RequestBody Employee employee ) {
 
         String result = employeeService.updateEmployee(employee , taxCode);
-
+        
+        // In base al risultato ricevuto da employeeService.createEmployee(employee)
+        // controllo il codice di risposta http e mando un messaggio per chiarire
+        // che tipo di risultato c'é stato
         if ( !result.equals("Dipendente aggiornato") )
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body( result );
 
@@ -90,11 +102,15 @@ public class EmployeeController {
 
 
     // DELETE ::::::::::::::::::::::::::::::::::::::
+    // ? Metodo per cancellare un {taxCode} dipendente
     @DeleteMapping ( "/delete-employee/{taxCode}" )
     public ResponseEntity < String > deleteemployee ( @PathVariable String taxCode ) {
 
         String result = employeeService.deleteEmployee(taxCode);
 
+        // In base al risultato ricevuto da employeeService.createEmployee(employee)
+        // controllo il codice di risposta http e mando un messaggio per chiarire
+        // che tipo di risultato c'é stato
         if ( !result.equals("Cancellato") )
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
 
@@ -105,7 +121,8 @@ public class EmployeeController {
 
 
     // ? DELEVOPER APIs
-    // ? EASIER TIME WITH NON-SWAGGER API PLATFORMS ::::::::::::::::::::::
+    // ? RENDE LA VITA PIÚ FACILE A CHI NON USA UN FRONT END
+    // ? E USA COSE COME POSTMAN ::::::::::::::::::::::
     @Hidden
     @GetMapping ( "/developer/employee-json" )
     public String employeeJson () {
