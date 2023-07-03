@@ -8,40 +8,54 @@
 
     <title> PORTALE </title>
     <link rel="stylesheet" href="styles/indexstyle.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
-
+    <!-- Quando la pagina viene caricata esegue delle funzioni -->
     <body id="body" onload="resetPage()">
         
+        <!-- Il sito é contenuto in questo container -->
         <main>
 
+            <!-- Il banner é contenuto in questo container -->
             <header>
+                <!-- Logo dipen denti -->
                 <img src="imgs/DIPEN-DENTI-LOGO.png" class="logo-banner" alt="">            
 
+                <!-- Icona sole -->
                 <img src="imgs/sun-star-1268-svgrepo-com.svg" class="sun transparent" id="sun" alt="">
-                
+                <!-- Switch tema scuro -->
                 <label class="switch">
                     <input type="checkbox" id="darkTheme" onchange = "toggleDarkTheme()">
                     <span class="slider round"></span>
                 </label> 
-                
+                <!-- Icona luna -->
                 <img src="imgs/moon-svgrepo-com.svg" class="moon" id="moon" alt="">
 
 
             </header>
 
 
-            <content>
 
+
+
+            <!-- Tutto quello che non é banner o footer é qui dentro -->
+            <content>
+                <!-- Div che contiene i bottoni che controllano la pagina -->
                 <div class="buttons-container">
+
+                    <!-- Bottone di lettura totale -->
                     <button class="read-button" disabled id="read-button" onclick="pressReadButton()">LEGGI</button>
+                    <!-- Bottone di creazione dipendente -->
                     <button class="create-button" id="create-button" onclick="pressCreateButton()">CREA</button>
+                    <!-- Bottone di lettura >30k -->
                     <button class="over-thirty-button" id="over-thirty-button" onclick="overThirthyButton()">>30k</button>
+                
                 </div>
 
+                <!-- Div che contiene le interfaccie interagibili dall'utente -->
                 <div class="interface-container">
 
+                    <!-- Div che contiene la tabella di tutti i dipendenti -->
                     <div class="employee-table" id="employee-table">
 
                         <table id="employees">
@@ -60,7 +74,8 @@
                           </table>
 
                     </div>
-
+                    
+                    <!-- Div che contiene la tabella di tutti i dipendenti >30k -->
                     <div class="employee-table-over-30k" id="employee-table-over-30k">
 
                         <table id="employees-30k">
@@ -80,19 +95,30 @@
 
                     </div>
 
+
+                    <!-- Form per il POST di creazione dipendente -->
                     <form id="employee-form" method="post" onsubmit="return sendEmployee()">
+                        
+                        <!-- Div che contiene l'interfaccia di creazione del dipendente -->
                         <div class="create-interface" id ="create">
 
+                            <!-- input nome creazione -->
                             <input required form="text" name="name" id="name" class="input-form" placeholder="Nome" maxlength="18">
 
+                            <!-- input cognome creazione-->
                             <input required form="text" name="surname" id="surname" class="input-form" placeholder="Cognome" maxlength="18">
 
+                            <!-- input codice fiscale creazione -->
                             <input required form="text" name="taxCode" id="taxCode" class="input-form" placeholder="Codice Fiscale" maxlength="16">
 
+                            <!-- input data di nascita creazione -->
                             <br>Data di nascita
                             <input required form="text" name="birth" type="date"id="birth" class="input-form">
+                            
+                            <!-- input salario creazione -->
                             <input required form="text" name="salary" id="salary" class="input-form" placeholder="RAL" maxlength="15">
 
+                            <!-- input ruolo creazione -->
                             <br><br><br><br>
                             <div id="radio-one">
                                 <input required type="radio" id="STAGISTA" name="role" value="STAGISTA" onchange="disableRest()">
@@ -104,6 +130,8 @@
                                 <input required type="radio" id="DIRETTORE" name="role" value="DIRETTORE" onchange="enableAllButStage()">
                                     <label class="radios four" for="DIRETTORE"><span class="text-in-radios">DIRETTORE</span></label>
                             </div>
+
+                            <!-- input contratto creazione -->
                             <br><br><br><br>
                             <div id="radio-two">
                                 <input required type="radio" id="STAGE" name="contract" value="STAGE" class="contract">
@@ -116,6 +144,7 @@
                                     <label class="radion four"for="INDETERMINATO"><span class="text-in-radios">INDETERMINATO</span></label>
                             </div>
 
+                            <!-- input competenze creazione -->
                             <br><br><br><br>
                             <div id="checkboxes">
                                 <input type="checkbox" name="ENGLISH" value="Conosce l'inglese" id="ENGLISH"/>
@@ -125,26 +154,41 @@
                                 <input type="checkbox" name="EXPTEN" value="Esperienza Decennale" id="EXPTEN" />
                                 <label class="check three" for="EXPTEN"><span class="text-in-check">ESPERIENZA DECENNALE</span></label>
                             </div>
+
                             <br><br><br><br><br><br>
                             <br><br><br>
-                            <!-- Indicates a successful or positive action -->
+
+                            <!-- Bottone CREA -->
                             <button type="Submit" value="Submit" class="btn btn-success btn-lg btn3d"><span class="glyphicon glyphicon-ok"></span> CREA</button>
+                        
                         </div>
+                    
                     </form>
 
-                    <form id="employee-form" method="post" onsubmit="return updateEmployee()">
+
+                    <!-- Form per il PUT di aggiornamento dipendente -->
+                    <form id="employee-form" method="put" onsubmit="return updateEmployee()">
+                        
+                        <!-- Div che contiene l'interfaccia di aggiornamento del dipendente -->
                         <div class="update-interface" id ="update">
 
+                            <!-- input nome aggiornamento -->
                             <input required form="text" name="name" id="nameU" class="input-form" placeholder="Nome" maxlength="18">
 
+                            <!-- input cognome aggiornamento -->
                             <input required form="text" name="surname" id="surnameU" class="input-form" placeholder="Cognome" maxlength="18">
 
+                            <!-- input codice fiscale aggiornamento -->
                             <input required form="text" disabled name="taxCode" id="taxCodeU" class="input-form" placeholder="Codice Fiscale" maxlength="16">
 
+                            <!-- input codice fiscale aggiornamento -->
                             <br>Data di nascita
                             <input required form="text" name="birth" type="date" id="birthU" class="input-form">
+                            
+                            <!-- input salario aggiornamento -->
                             <input required form="text" name="salary" id="salaryU" class="input-form" placeholder="RAL" maxlength="15">
 
+                            <!-- input ruolo aggiornamento -->
                             <br><br><br><br>
                             <div id="radio-one">
                                 <input required type="radio" id="STAGISTAU" name="roleU" value="STAGISTA" onchange="disableRestU()">
@@ -156,6 +200,8 @@
                                 <input required type="radio" id="DIRETTOREU" name="roleU" value="DIRETTORE" onchange="enableAllButStageU()">
                                     <label class="radios four" for="DIRETTOREU"><span class="text-in-radios">DIRETTORE</span></label>
                             </div>
+
+                            <!-- input contratto aggiornamento -->
                             <br><br><br><br>
                             <div id="radio-two">
                                 <input required type="radio" id="STAGEU" name="contractU" value="STAGE" class="contract">
@@ -168,6 +214,7 @@
                                     <label class="radion four"for="INDETERMINATOU"><span class="text-in-radios">INDETERMINATO</span></label>
                             </div>
 
+                            <!-- input competenze aggiornamento -->
                             <br><br><br><br>
                             <div id="checkboxes">
                                 <input type="checkbox" name="ENGLISH" value="Conosce l'inglese" id="ENGLISHU"/>
@@ -177,28 +224,38 @@
                                 <input type="checkbox" name="EXPTEN" value="Esperienza Decennale" id="EXPTENU" />
                                 <label class="check three" for="EXPTENU"><span class="text-in-check">ESPERIENZA DECENNALE</span></label>
                             </div>
+
                             <br><br><br><br><br><br>
                             <br><br><br>
-                            <!-- Indicates a successful or positive action -->
+
+                            <!-- Bottone AGGIORNA -->
                             <button type="Submit" value="Submit" class="btn btn-info btn-lg btn3d"><span class="glyphicon glyphicon-question-sign"></span> AGGIORNA </button>
+                        
                         </div>
+                    
                     </form>
+                
+                
                 </div>
+            
             </content>
 
-
+            <!-- Footer... é nel nome -->
             <footer>
 
+                <!-- Sezione supporto tecnico -->
                 <div class="tech-support">
                     <span class="description"> Supporto tecnico <br> 800 800 8888 </span>
                     <img src="imgs/phone-svgrepo-com.svg" class="phone" alt="">
                 </div>
 
+                <!-- Sezione team leader -->
                 <div class="team-leader">
                     <span class="description"> Mail <br> leader@mail.it </span>
                     <img src="imgs/person-svgrepo-com.svg" class="leader" alt="">
                 </div>
 
+                <!-- Sezione creatore sito -->
                 <div class="about">
                     <span class="description"> Creatore sito <br> Riccardo Donaddio </span>
                     <img src="imgs/info-circle-svgrepo-com.svg" class="info" alt="">
@@ -208,18 +265,26 @@
             
         </main>
 
+        <!-- JAVASCRIPT ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
         <script>
 
+            // Funzione attivata a caricamento pagina
             function resetPage(){
 
+                // Controllo i cookie per tema scuro ( ! FUNZIONA SOLO SU FIREFOX ! )
                 checkCookie();
 
+                // Metto come sezione predefinita la tabella di lettura totale
                 pressReadButton();
 
+                // Tolgo i check da tutti gli input radio per pulire eventuali utilizzi
+                // nella stessa sessione
                 uncheckAll();
 
+                // Chiamo l'API di lettura per leggere tutti i dipendenti
                 readEmployees();
 
+                // Chiamo l'API di lettura per leggere tutti i dipendenti >30k
                 readEmployeesOverThirty();
             }
 
@@ -1005,7 +1070,7 @@
             }
 
     </script>
-
+    <!-- ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; -->
 
     </body>
 
