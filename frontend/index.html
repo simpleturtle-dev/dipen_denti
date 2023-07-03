@@ -288,67 +288,88 @@
                 readEmployeesOverThirty();
             }
 
+            // Tolgo i check da tutti gli input radio per pulire eventuali utilizzi
+            // nella stessa sessione
             function uncheckAll(){
 
+                // Tolgo i check dai ruoli
                 uncheckRoles();
 
+                // Tolgo i check dai contratti
                 uncheckContracts();
             }
 
+            // Tolgo i check dai ruoli
             function uncheckRoles() {
 
+                // Tolgo il check da STAGISTA
                 let x = document.getElementById("STAGISTA");
                 x.checked = false;
 
+                // Tolgo il check da DIPENDENTE
                 x = document.getElementById("DIPENDENTE");
                 x.checked = false;
 
+                // Tolgo il check da MANAGER
                 x = document.getElementById("MANAGER");
                 x.checked = false;
 
+                // Tolgo il check da DIRETTORE
                 x = document.getElementById("DIRETTORE");
                 x.checked = false;
 
             }
 
+            // Tolgo i check dai contratti
             function uncheckContracts() {
 
+                // Tolgo il check da STAGE
                 let x = document.getElementById("STAGE");
                 x.checked = false;
 
+                // Tolgo il check da PART TIME
                 x = document.getElementById("PARTTIME");
                 x.checked = false;
 
+                // Tolgo il check da DETERMINATO
                 x = document.getElementById("DETERMINATO");
                 x.checked = false;
 
+                // Tolgo il check da INDETERMINATO
                 x = document.getElementById("INDETERMINATO");
                 x.checked = false;
 
             }
 
+            // Tolgo i check dai contratti nell'interfaccia di aggiornamento
             function uncheckContractsU() {
 
+                // Tolgo il check da STAGE
                 let x = document.getElementById("STAGEU");
                 x.checked = false;
 
+                // Tolgo il check da PART TIME
                 x = document.getElementById("PARTTIMEU");
                 x.checked = false;
 
+                // Tolgo il check da DETERMINATO
                 x = document.getElementById("DETERMINATOU");
                 x.checked = false;
 
+                // Tolgo il check da INDETERMINATO
                 x = document.getElementById("INDETERMINATOU");
                 x.checked = false;
 
                 }
-
+            
+            // Attiva e disattiva tema scuro ( viene chiamata su pressione switch )
             function toggleDarkTheme(){
 
-                
+                //  Assegna al body la classe dark
                 var element = document.getElementById("body");
                 element.classList.toggle("dark");
                 
+                //  Sistema i cookie per tenere il tema selezionato anche dopo caricamento
                 let dark = getCookie("dark");
                 if ( dark == "false"){
                     var element = document.getElementById("moon");
@@ -369,89 +390,123 @@
                 }
             };
 
-
+            // Disabilita il bottone di CREA, abilita gli altri e fa comparire l'
+            // interfaccia di creazione e fa sparire le altre
             function pressCreateButton(){
 
+                // Disabilita il bottone di CREA
                 var element = document.getElementById("create-button");
                 element.disabled = true;
 
+                // Abilita il bottone di LEGGI
                 var element = document.getElementById("read-button");
                 element.disabled = false;
 
+                // Abilita il bottone di >30k
                 var element = document.getElementById("over-thirty-button");
                 element.disabled = false;
 
-                makeDisappear("employee-table", "create", "update", "employee-table-over-30k");
+                // Fa comparire l'interfaccia di creazione e fa sparire le altre
+                makeDisappear( "create", "employee-table", "update", "employee-table-over-30k");
 
             }
 
-
+            // Disabilita il bottone di LEGGI, abilita gli altri e fa comparire l'
+            // interfaccia di lettura totale e fa sparire le altre
             function pressReadButton(){
 
+                // Disabilita il bottone di LEGGI
                 var element = document.getElementById("read-button");
                 element.disabled = true;
 
+                // Abilita il bottone di CREA
                 var element = document.getElementById("create-button");
                 element.disabled = false;
 
+                // Abilita il bottone di >30k
                 var element = document.getElementById("over-thirty-button");
                 element.disabled = false;
 
-                makeDisappear("create", "employee-table", "update", "employee-table-over-30k");
+                // Fa comparire l'interfaccia di lettura totale e fa sparire le altre
+                makeDisappear( "employee-table", "create", "update", "employee-table-over-30k");
 
             }
 
+            // Disabilita il bottone di CREA, abilita gli altri e fa comparire l'
+            // interfaccia di aggiornamnento e fa sparire le altre
             function pressUpdateButton(){
 
-                var element = document.getElementById("read-button");
-                element.disabled = false;
-
+                // Disabilita il bottone di CREA
                 var element = document.getElementById("create-button");
                 element.disabled = true;
 
+                // Abilita il bottone di LEGGI
+                var element = document.getElementById("read-button");
+                element.disabled = false;
+
+                // Abilita il bottone di >30k
                 var element = document.getElementById("over-thirty-button");
                 element.disabled = false;
 
-                makeDisappear("employee-table", "update", "create", "employee-table-over-30k");
+                // Fa comparire l'interfaccia di aggiornamento e fa sparire le altre
+                makeDisappear("update", "employee-table", "create", "employee-table-over-30k");
             }
 
+            // Disabilita il bottone di >30k, abilita gli altri e fa comparire l'
+            // interfaccia di lettura >30k e fa sparire le altre
             function overThirthyButton(){
 
-                var element = document.getElementById("create-button");
-                element.disabled = false;
-
-                var element = document.getElementById("read-button");
-                element.disabled = false;
-
+                // Disabilita il bottone di >30k
                 var element = document.getElementById("over-thirty-button");
                 element.disabled = true;
 
-                makeDisappear("employee-table", "employee-table-over-30k", "update", "create" );
+                // Abilita il bottone di CREA
+                var element = document.getElementById("create-button");
+                element.disabled = false;
+
+                // Abilita il bottone di LEGGI
+                var element = document.getElementById("read-button");
+                element.disabled = false;
+
+                // Fa comparire l'interfaccia di lettura >30k e fa sparire le altre
+                makeDisappear("employee-table-over-30k", "employee-table",  "update", "create" );
 
             }
 
-            function makeDisappear(span, otherSpan, otherOtherSpan, otherOtherOtherSpan) {
+            // Fa comparire un'interfaccia specifica e fa scomparire le altre
+            function makeDisappear(wantedElement, noElementOne, noElementTwo, noElementThree) {
 
-                var x = document.getElementById(span); 
-                x.style.display = "none";
-
-                var x = document.getElementById(otherOtherSpan); 
-                x.style.display = "none";
-
-                var x = document.getElementById(otherOtherOtherSpan); 
-                x.style.display = "none";
-
-                var x = document.getElementById(otherSpan); 
+                // Fa comparire il primo
+                var x = document.getElementById(wantedElement); 
                 x.style.display = "block";
+
+                // Gli altri scompaiono
+                var x = document.getElementById(noElementOne); 
+                x.style.display = "none";
+
+                var x = document.getElementById(noElementTwo); 
+                x.style.display = "none";
+
+                var x = document.getElementById(noElementThree); 
+                x.style.display = "none";
+                
             }
 
+            // Funzione che aiuta nella creazione dei cookie
             function setCookie(cname,cvalue,exdays) {
+
+                // Data di scadenza
                 const d = new Date();
                 d.setTime(d.getTime() + (exdays*24*60*60*1000));
+
+                // Data di scadenza in stringa
                 let expires = "expires=" + d.toUTCString();
+
+                // Creazione cookie
                 document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
             }
 
+            // Funzione che aiuta nella lettura dei cookie
             function getCookie(cname) {
                 let name = cname + "=";
                 let decodedCookie = decodeURIComponent(document.cookie);
