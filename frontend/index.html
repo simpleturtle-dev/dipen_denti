@@ -523,8 +523,11 @@
                 return "";
             }
 
-             function checkCookie() {
+            // Controllo i cookie per tema scuro ( ! FUNZIONA SOLO SU FIREFOX ! )
+            function checkCookie() {
+
                 let dark = getCookie("dark");
+                // Gestisco l'icona del sole e della luna rendendole trasparenti in base al tema
                 if (dark != "true") {
 
                     var element = document.getElementById("moon");
@@ -533,9 +536,13 @@
                     var element = document.getElementById("sun");
                     element.classList.remove("transparent");
 
+                    // Estendo la scadenza dei cookie
                     setCookie("dark", "false", 30);
                 } else {
+                    // Se il tema è scuro
                     if (dark != "" && dark != null) {
+
+                        // Metto lo switch in stato checked
                         var element = document.getElementById("darkTheme");
                         element.checked = true;
 
@@ -545,74 +552,88 @@
                         var element = document.getElementById("sun");
                         element.classList.add("transparent");
 
+                        // Aggiungo al body la classe dark
                         var element = document.getElementById("body");
                         element.classList.toggle("dark");
+
+                        // Estendo la scadenza dei cookie
                         setCookie("dark", "true", 30);
                     }
 
                 }
             }
 
+            // Funzione per inviare un dipendente creato dall'interfaccia di creazione
+            // chiamata su bottone CREA
             function sendEmployee (){
 
+                // Apro la connessione verso l'API di POST
                 let xhr = new XMLHttpRequest();
-                    xhr.open("POST", "http://localhost:8080/employee-controller/hire-employee");
-                    xhr.setRequestHeader("Accept", "application/json");
-                    xhr.setRequestHeader("Content-Type", "application/json");
-
-                    xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4) {
-                        console.log(xhr.status);
-                        console.log(xhr.responseText);
-                    }};
-
-                    let role = "";
-                    if ( document.getElementById("STAGISTA").checked == true )
-                        role = "STAGISTA";
-                    else if ( document.getElementById("DIPENDENTE").checked == true)
-                        role = "DIPENDENTE";
-                    else if ( document.getElementById("MANAGER").checked == true)
-                        role = "MANAGER";
-                    else if ( document.getElementById("DIRETTORE").checked == true)
-                        role = "DIRETTORE"; 
-                        
-                    let contract = "";
-                    if ( document.getElementById("STAGE").checked == true )
-                        contract = "STAGE";
-                    else if ( document.getElementById("PARTTIME").checked == true)
-                        contract = "PARTTIME";
-                    else if ( document.getElementById("DETERMINATO").checked == true)
-                        contract = "DETERMINATO";
-                    else if ( document.getElementById("INDETERMINATO").checked == true)
-                        contract = "INDETERMINATO"; 
-
-                    let competences = checkCheckboxes("ENGLISH","PATENT","EXPTEN");
-
-                    let data = "{\n" + 
-                                    "\t\"name\": \"" + document.querySelector('#name').value + "\",\n" +
-                                    "\t\"surname\": \"" + document.querySelector('#surname').value + "\",\n" + 
-                                    "\t\"taxCode\": \"" + document.querySelector('#taxCode').value + "\",\n" +
-                                    "\t\"birth\": \"" + document.querySelector('#birth').value + "\",\n" +
-                                    "\t\"role\": \"" + role + "\",\n" +
-                                    "\t\"salary\":" + document.querySelector('#salary').value + ",\n" +
-                                    "\t\"contract\": \"" + contract + "\",\n" +
-                                    "\t\"competenceList\": [\n" + competences +
-                                    "\t]\n" +
-                                "}";
-
-                    xhr.send(data);
-
-                    alert("Richiesta inviata")
-                    alert(xhr.responseText);
-            }
-
-            function displayRadioValueRole() {
+                xhr.open("POST", "http://localhost:8080/employee-controller/hire-employee");
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
                 
+                // Funzione pronta a ricevere la risposta della chiamata API
+                xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    console.log(xhr.status);
+                    console.log(xhr.responseText);
+                }};
+
+                // Controllo quale ruolo è stato scelto per la costruzione del json
+                let role = "";
+                if ( document.getElementById("STAGISTA").checked == true )
+                    role = "STAGISTA";
+                else if ( document.getElementById("DIPENDENTE").checked == true)
+                    role = "DIPENDENTE";
+                else if ( document.getElementById("MANAGER").checked == true)
+                    role = "MANAGER";
+                else if ( document.getElementById("DIRETTORE").checked == true)
+                    role = "DIRETTORE"; 
+                
+                // Controllo quale contrato è stato scelto per la costruzione del json
+                let contract = "";
+                if ( document.getElementById("STAGE").checked == true )
+                    contract = "STAGE";
+                else if ( document.getElementById("PARTTIME").checked == true)
+                    contract = "PARTTIME";
+                else if ( document.getElementById("DETERMINATO").checked == true)
+                    contract = "DETERMINATO";
+                else if ( document.getElementById("INDETERMINATO").checked == true)
+                    contract = "INDETERMINATO"; 
+
+                // Controllo quali competenze sono state scelte per la costruzione del json
+                let competences = checkCheckboxes("ENGLISH","PATENT","EXPTEN");
+
+                //Costruzione del json
+                let data = "{\n" + 
+                                "\t\"name\": \"" + document.querySelector('#name').value + "\",\n" +
+                                "\t\"surname\": \"" + document.querySelector('#surname').value + "\",\n" + 
+                                "\t\"taxCode\": \"" + document.querySelector('#taxCode').value + "\",\n" +
+                                "\t\"birth\": \"" + document.querySelector('#birth').value + "\",\n" +
+                                "\t\"role\": \"" + role + "\",\n" +
+                                "\t\"salary\":" + document.querySelector('#salary').value + ",\n" +
+                                "\t\"contract\": \"" + contract + "\",\n" +
+                                "\t\"competenceList\": [\n" + 
+                                    competences +
+                                "\t]\n" +
+                            "}";
+
+                // Mando la richiesta col json cstruito
+                xhr.send(data);
+
+                // L'utente riceve la risposta
+                alert("Richiesta inviata")
+                alert(xhr.responseText);
             }
 
+            // Controllo quali competenze sono state scelte per la costruzione del json
             function checkCheckboxes(first,second,third) {
 
                 let result = "";
+                // Variabile di controllo per rendere l'output più pulito per il json
+                // contando quate competenze ho trovato posso decidere se mettere una virgola
+                // oppure no costruendo cosi il json corettamente
                 let itemfound = 0;
 
                 let ele = document.getElementById(first);
@@ -643,6 +664,9 @@
                 
             }
 
+            // Funzione chiamata su pressione del bottone STAGE sull'interfaccia di creazione
+            // Quando STAGE viene selezionato tutti i bottoni di contratto
+            // tranne stagista vengono disattivati
             function disableRest(){
 
                 let x = document.getElementById("STAGE");
@@ -658,9 +682,13 @@
                 x = document.getElementById("INDETERMINATO");
                 x.disabled = true;
 
+                // Tolgo il check a tutti i contratti dell'interfaccia di crezione
                 uncheckContracts()
             }
 
+            // Funzione chiamata su pressione del bottone STAGE sull'interfaccia di aggiornamento
+            // Quando STAGE viene selezionato tutti i bottoni di contratto
+            // tranne stagista vengono disattivati
             function disableRestU(){
 
                 let x = document.getElementById("STAGEU");
@@ -676,9 +704,12 @@
                 x = document.getElementById("INDETERMINATOU");
                 x.disabled = true;
 
+                // Tolgo il check a tutti i contratti dell'interfaccia di aggiornamento
                 uncheckContractsU()
-                }
-
+            }
+            
+            // Funzione chiamata su pressione di un bottone NON-STAGE sull'interfaccia di crezione
+            // Quando NON-STAGE viene selezionato il bottone STAGISTA viene disabilitato
             function enableAllButStage(){
 
                 let x = document.getElementById("STAGE");
@@ -693,9 +724,12 @@
                 x = document.getElementById("INDETERMINATO");
                 x.disabled = false;
 
+                // Tolgo il check a tutti i contratti dell'interfaccia di crezione
                 uncheckContracts()
             }
 
+            // Funzione chiamata su pressione di un bottone NON-STAGE sull'interfaccia di aggiornamento
+            // Quando NON-STAGE viene selezionato il bottone STAGISTA viene disabilitato
             function enableAllButStageU(){
 
                 let x = document.getElementById("STAGEU");
@@ -710,201 +744,245 @@
                 x = document.getElementById("INDETERMINATOU");
                 x.disabled = false;
 
+                // Tolgo il check a tutti i contratti dell'interfaccia di aggiornamento
                 uncheckContractsU()
-                }
+            }
 
-
+            // Funzione chiamata ad apertura pagina per leggere tutti i dipendenti dal database
             function readEmployees(){
 
+                // Apro la connessione verso l'API di GET
                 const req = new XMLHttpRequest();
-
                 req.open("GET", "http:localhost:8080/employee-controller/all-employees");
 
+                // Funzione pronta a ricevere la risposta dell'API
                 req.onload  = function() {
                     var jsonResponse = req.response;
                     if (jsonResponse != "[]" )
+                        // Converto la risposta dell'API in una tabella
                         convert(jsonResponse);           
                 };
 
-                let x = req.send()
-
-
+                // Mando la richiesta
+                let x = req.send();
             }
 
+            // Funzione chiamata ad apertura pagina per leggere tutti i dipendenti 
+            // con salario superiore ai 30k dal database
             function readEmployeesOverThirty(){
 
+                // Apro la connessione verso l'API di GET
                 const req = new XMLHttpRequest();
-
                 req.open("GET", "http:localhost:8080/employee-controller/employees/30000k");
 
+                // Funzione pronta a ricevere la risposta dell'API
                 req.onload  = function() {
                     var jsonResponse = req.response;
                     if (jsonResponse != "[]" )
+                        // Converto la risposta dell'API in una tabella
                         convertO(jsonResponse);            
                 };
 
+                // Mando la richiesta
                 let x = req.send()
+            }
 
-
-                }
-
-
+            // ? LE FUNZIONI DI CONVERSIONE PER TABELLA TOTALE E TABELLA >30k SONO SEPARATE
+            // ? PER IMPEDIRE CHE GLI ID DEI BOTTONI VENGANO MISCHIATI
+            
+            // Variabile globale per gestire meglio la creazione dei bottoni, spiegazione più
+            // specifica alla creazione del bottone
             var i = 0;
+            //Funzione chiamata in lettura di database 
+            // Converto la risposta dell'API in una tabella
             function convert(jsonResponse) {
 
-                jsonResponse = JSON.parse(jsonResponse);
+                // La stringa di risposta delle API diventa un json
+                let jsonData = JSON.parse(jsonResponse);
                 
-                let jsonData = jsonResponse;
-                // Get the container element where the table will be inserted
+                // Prendo il div della tabella di lettura totale
                 let container = document.getElementById("employee-table");
                 
-                // Create the table element
+                // Prendo la tabella di lettura totale
                 let table = document.getElementById("employees");
                 
-                // Get the keys (column "name"s) of the first object in the JSON data
-                let cols = Object.keys(jsonData[0]);
-                
-                // Create the header element
+                // Crea header e riga dell header
                 let thead = document.createElement("thead");
                 let tr = document.createElement("tr");
                 
-                thead.appendChild(tr); // Append the header row to the header
-                table.append(tr) // Append the header to the table
-
+                // Aggiungi header alla tabella
+                thead.appendChild(tr); 
+                table.append(tr) 
                 
-                
-                // Loop through the JSON data and create table rows
+                // Cicla per tutti i json trovati
                 jsonData.forEach((item) => {
 
+                    // Crea una riga dove mettere i valori del json
                     let tr = document.createElement("tr");
                     
-                    // Get the values of the current object in the JSON data
+                    // Prendi i valori del json selezionato dal ciclo
                     let vals = Object.values(item);
                     
-                    // Loop through the values and create table cells
+                    // Cicla per i valori nel json
                     vals.forEach((elem) => {
                         let td = document.createElement("td");
-                        td.innerText = elem; // Set the value as the text of the table cell
-                        tr.appendChild(td); // Append the table cell to the table row
+                        td.innerText = elem;
+                        // Aggiungi cella alla tabella inserendo all'interno il valore selezionato
+                        // dal ciclo 
+                        tr.appendChild(td); 
                     });
 
+                    // Processo di creazione celle di aggiornamento
                     let td = document.createElement("td");
                     var btn = document.createElement('input');
+
+                    // Crezione bottone aggiornamento
                     btn.type = "button";
                     btn.className = "update-button";
                     btn.value = "";
+                    // Inserimento ID nel bottone: utilizzando una variabile globale che incrementa ogni volta
+                    // che cambiamo json, possiamo far capire al bottone dove si trova e di conseguenza
+                    // prendere i dati dalla propria riga per riempire i campi dell'interfaccia di aggiornamento
                     btn.id = i;
-                    btn.onclick = ( function() {    var table = document.getElementById('employees');
-                                                    var result = "";
-                                                    for (var r = +this.id + 2, n = +this.id + 3; r < n; r++) {
-                                                        for (var c = 0, m = table.rows[r].cells.length - 2; c < m; c++) {
-                                                            result = result + (table.rows[r].cells[c].innerHTML) + "|";
+                    btn.onclick = ( function() {    
+                                        // Prendo la tabella sulla quale siamo
+                                        var table = document.getElementById('employees');
+                                        var result = "";
+                                        // e navigo la riga dell'id del bottone per prendere tutti i valori
+                                        for (var r = +this.id + 2, n = +this.id + 3; r < n; r++) {
+                                            for (var c = 0, m = table.rows[r].cells.length - 2; c < m; c++) 
+                                            // Li separo con | per facilitare la speraione dei valori
+                                                result = result + (table.rows[r].cells[c].innerHTML) + "|";
    
-                                                        }
                                                         
-                                                        const myArray = result.split("|");
+                                            // Divido i valori in una lista
+                                            const myArray = result.split("|");
 
-                                                        let x = document.getElementById ("nameU");
-                                                        x.value = myArray[0];
+                                            //Riempo i campi dell'interfaccia di aggiornamento
+                                            let x = document.getElementById ("nameU");
+                                            x.value = myArray[0];
 
-                                                        x = document.getElementById ("surnameU");
-                                                        x.value = myArray[1];
+                                            x = document.getElementById ("surnameU");
+                                            x.value = myArray[1];
 
-                                                        x = document.getElementById ("taxCodeU");
-                                                        x.value = myArray[2];
-                                                        x.disabled = true;
+                                            x = document.getElementById ("taxCodeU");
+                                            x.value = myArray[2];
+                                            // Disabilito l'inut per Codice Fiscale perchè non voglio che si
+                                            // modifichi
+                                            x.disabled = true;
 
-                                                        x = document.getElementById ("birthU");
-                                                        x.value = myArray[3];
+                                            x = document.getElementById ("birthU");
+                                            x.value = myArray[3];
 
-                                                        x = document.getElementById ("salaryU");
-                                                        x.value = myArray[5];
+                                            x = document.getElementById ("salaryU");
+                                            x.value = myArray[5];
                                                         
 
-                                                        if ( myArray[4] == "STAGISTA"){
-                                                            x = document.getElementById ("STAGISTAU");
-                                                            x.checked = true;
-                                                            disableRest();
-                                                        } else if ( myArray[4] == "DIPENDENTE" ){
-                                                            x = document.getElementById ("DIPENDENTEU");
-                                                            x.checked = true;
-                                                            enableAllButStage();
-                                                        } else if ( myArray[4] == "MANAGER" ){
-                                                            x = document.getElementById ("MANAGERU");
-                                                            x.checked = true;
-                                                            enableAllButStage();
-                                                        } else if ( myArray[4] == "DIRETTORE" ){
-                                                            x = document.getElementById ("DIRETTOREU");
-                                                            x.checked = true;
-                                                            enableAllButStage();
-                                                        }
+                                            if ( myArray[4] == "STAGISTA"){
+                                                x = document.getElementById ("STAGISTAU");
+                                                x.checked = true;
+                                                disableRest();
+                                            } else if ( myArray[4] == "DIPENDENTE" ){
+                                                x = document.getElementById ("DIPENDENTEU");
+                                                x.checked = true;
+                                                enableAllButStage();
+                                            } else if ( myArray[4] == "MANAGER" ){
+                                                x = document.getElementById ("MANAGERU");
+                                                x.checked = true;
+                                                enableAllButStage();
+                                            } else if ( myArray[4] == "DIRETTORE" ){
+                                                x = document.getElementById ("DIRETTOREU");
+                                                x.checked = true;
+                                                enableAllButStage();
+                                            }
 
-                                                        if ( myArray[6] == "STAGE"){
-                                                            x = document.getElementById ("STAGEU");
-                                                            x.checked = true;
-                                                        } else if ( myArray[6] == "PARTTIME" ){
-                                                            x = document.getElementById ("PARTTIMEU");
-                                                            x.checked = true;
-                                                        } else if ( myArray[6] == "DETERMINATO" ){
-                                                            x = document.getElementById ("DETERMINATOU");
-                                                            x.checked = true;
-                                                        } else if ( myArray[6] == "INDETERMINATO" ){
-                                                            x = document.getElementById ("INDETERMINATOU");
-                                                            x.checked = true;
-                                                        }
+                                            if ( myArray[6] == "STAGE"){
+                                                x = document.getElementById ("STAGEU");
+                                                x.checked = true;
+                                            } else if ( myArray[6] == "PARTTIME" ){
+                                                x = document.getElementById ("PARTTIMEU");
+                                                x.checked = true;
+                                            } else if ( myArray[6] == "DETERMINATO" ){
+                                                x = document.getElementById ("DETERMINATOU");
+                                                x.checked = true;
+                                            } else if ( myArray[6] == "INDETERMINATO" ){
+                                                x = document.getElementById ("INDETERMINATOU");
+                                                x.checked = true;
+                                            }
 
-                                                        let competences = myArray[7].split(",");
-                                                        for (let step = 0; step < competences.length; step++) {
-                                                            if (competences[step] == "Conosce l'inglese"){
-                                                                let x = document.getElementById("ENGLISHU");
-                                                                x.checked = true;
-                                                            } else if (competences[step] == "Patente B"){
-                                                                let x = document.getElementById("PATENTU");
-                                                                x.checked = true;
-                                                            }else if (competences[step] == "Esperienza Decennale"){
-                                                                let x = document.getElementById("EXPTENU");
-                                                                x.checked = true;
-                                                            }
-                                                        }
+                                            let competences = myArray[7].split(",");
+                                            for (let step = 0; step < competences.length; step++) {
+                                                if (competences[step] == "Conosce l'inglese"){
+                                                    let x = document.getElementById("ENGLISHU");
+                                                    x.checked = true;
+                                                } else if (competences[step] == "Patente B"){
+                                                    let x = document.getElementById("PATENTU");
+                                                    x.checked = true;
+                                                }else if (competences[step] == "Esperienza Decennale"){
+                                                    let x = document.getElementById("EXPTENU");
+                                                    x.checked = true;
+                                                }
+                                            }
 
-                                                        pressUpdateButton();
-                                                    }
-                                                });
+                                            // Ogni bottone su pressione richiamerà pressUpdateButton()
+                                            pressUpdateButton();
+                                        }
+                                    });
+                    // Aggiungo il bottone appena creato nella cella
                     td.appendChild(btn);
                     tr.appendChild(td);
+
+                    // Crezione bottone aggiornamento
                     td = document.createElement("td");
                     btn = document.createElement('input');
                     btn.type = "submit";
                     btn.className = "delete-button";
                     btn.value = "";
+                    // Inserimento ID nel bottone: utilizzando una variabile globale che incrementa ogni volta
+                    // che cambiamo json, possiamo far capire al bottone dove si trova e di conseguenza
+                    // prendere il codice fiscale della propria riga per avviare una cancellazione tramite
+                    // codice fiscale
                     btn.id = i;
-                    btn.onclick = ( function() {    var table = document.getElementById('employees');
-                                                    for (var r = +this.id + 2, n = +this.id + 3; r < n; r++) {
-                                                        for (var c = 2, m = table.rows[r].cells.length - 7; c < m; c++) {
-                                                            const req = new XMLHttpRequest();
-                                                            req.open("DELETE", "http:localhost:8080/employee-controller/delete-employee/" + table.rows[r].cells[c].innerHTML);
+                    btn.onclick = ( function() {
+                                        // Prendo la tabella sulla quale siamo
+                                        var table = document.getElementById('employees');
+                                        // e navigo la riga dell'id del bottone per codice fiscale
+                                        for (var r = +this.id + 2, n = +this.id + 3; r < n; r++) {
+                                            for (var c = 2, m = table.rows[r].cells.length - 7; c < m; c++) {
 
-                                                            req.onload  = function() {
-                                                                var jsonResponse = req.response;
-                                                                convert(jsonResponse);            
-                                                            };
+                                                // Apro una connessione verso l'API di DELETE
+                                                const req = new XMLHttpRequest();
+                                                req.open("DELETE", "http:localhost:8080/employee-controller/delete-employee/" + table.rows[r].cells[c].innerHTML);
 
-                                                            let x = req.send();
+                                                // Mando la richiesta
+                                                req.send();
+                                                
+                                                // L'utente viene avvertito della cancellazione
+                                                alert("Utente cancellato")
 
-                                                            alert("Utente cancellato")
-
-                                                            location.reload()
-                                                            
-                                                        }
-                                                    }
-                                                });
+                                                // Aggiorno la pagina per aggiornare la tabella
+                                                location.reload()
+                                                
+                                                // Ogni bottone di cancellazione avrà questa funzione al
+                                                // suo interno
+                                                }
+                                            }
+                                    });
+                    // Aggiung il bottone di cancellazione nella tabella
                     td.appendChild(btn);
                     tr.appendChild(td);
-                    table.appendChild(tr); // Append the table row to the table
+
+                    // Aggiungo la riga creata alla tabella
+                    table.appendChild(tr); 
+
+                    // Incremento la variabile globale per modificare il prossimo id
                     i++;
                 });
-                container.appendChild(table) // Append the table to the container element
+                // Metti la tabella nel div
+                container.appendChild(table) 
             }
+
+
 
             var k = 0;
             function convertO(jsonResponse) {
@@ -1064,26 +1142,26 @@
                 container.appendChild(table) // Append the table to the container element
             }
 
-            function reply_click(clicked_id)
-                    {
-                        /* alert(clicked_id); */
-                    }
-
+            // Funzione chiamata su pressione del bottone AGGIORNA nell'interfaccia di aggiornamento
             function updateEmployee(){
 
+                // Prendo il codice fiscale del corpo della riga
                 let taxCode = document.getElementById("taxCodeU").value
 
+                // Apro una connessione verso l'API di PUT
                 let xhr = new XMLHttpRequest();
                 xhr.open("PUT", "http://localhost:8080/employee-controller/update/" + taxCode);
                 xhr.setRequestHeader("Accept", "application/json");
                 xhr.setRequestHeader("Content-Type", "application/json");
 
+                // Funzione pronta a ricevere al risposta dell'API
                 xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     console.log(xhr.status);
                     console.log(xhr.responseText);
                 }};
 
+                // Controllo che ruolo è stato scelto per costruzione del json
                 let role = "";
                 if ( document.getElementById("STAGISTAU").checked == true )
                     role = "STAGISTA";
@@ -1093,7 +1171,8 @@
                     role = "MANAGER";
                 else if ( document.getElementById("DIRETTOREU").checked == true)
                     role = "DIRETTORE"; 
-                    
+                
+                // Controllo che contratto è stato scelto per costruzione del json
                 let contract = "";
                 if ( document.getElementById("STAGEU").checked == true )
                     contract = "STAGE";
@@ -1104,8 +1183,10 @@
                 else if ( document.getElementById("INDETERMINATOU").checked == true)
                     contract = "INDETERMINATO"; 
 
+                // Controllo che competenze sono state scelte per costruzione del json
                 let competences = checkCheckboxes("ENGLISHU","PATENTU","EXPTENU");
 
+                // Costruzione json
                 let data = "{\n" + 
                                 "\t\"name\": \"" + document.querySelector('#nameU').value + "\",\n" +
                                 "\t\"surname\": \"" + document.querySelector('#surnameU').value + "\",\n" + 
@@ -1114,12 +1195,15 @@
                                 "\t\"role\": \"" + role + "\",\n" +
                                 "\t\"salary\":" + document.querySelector('#salaryU').value + ",\n" +
                                 "\t\"contract\": \"" + contract + "\",\n" +
-                                "\t\"competenceList\": [\n" + competences +
+                                "\t\"competenceList\": [\n" + 
+                                    competences +
                                 "\t]\n" +
                             "}";
 
+                // Mando la richiesta 
                 xhr.send(data);
 
+                // l'utente riceve la risposta
                 alert("Richiesta inviata")
                 alert(xhr.responseText);
             }

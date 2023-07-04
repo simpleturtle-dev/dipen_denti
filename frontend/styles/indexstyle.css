@@ -875,8 +875,8 @@ table th:nth-child(7) {
 }
 
 /* Dimensione della colonna competenze */
-table td:nth-child(8) {  
-  width:190px;
+table td:nth-child(8), table th:nth-child(8) {  
+  width:200px;
 
   font-size: 8px;
 }
