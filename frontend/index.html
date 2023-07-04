@@ -982,166 +982,198 @@
                 container.appendChild(table) 
             }
 
-
-
+            // Variabile globale per gestire meglio la creazione dei bottoni, spiegazione più
+            // specifica alla creazione del bottone
             var k = 0;
+            //Funzione chiamata in lettura di database 
+            // Converto la risposta dell'API in una tabella
             function convertO(jsonResponse) {
 
-                jsonResponse = JSON.parse(jsonResponse);
+                // La stringa di risposta delle API diventa un json
+                let jsonData = JSON.parse(jsonResponse);
                 
-                let jsonData = jsonResponse;
-                // Get the container element where the table will be inserted
+                // Prendo il div della tabella di lettura totale
                 let container = document.getElementById("employee-table-over-30k");
                 
-                // Create the table element
+                // Prendo la tabella di lettura totale
                 let table = document.getElementById("employees-30k");
                 
-                // Get the keys (column "name"s) of the first object in the JSON data
-                let cols = Object.keys(jsonData[0]);
-                
-                // Create the header element
+                // Crea header e riga dell header
                 let thead = document.createElement("thead");
                 let tr = document.createElement("tr");
                 
-                thead.appendChild(tr); // Append the header row to the header
-                table.append(tr) // Append the header to the table
-
+                // Aggiungi header alla tabella
+                thead.appendChild(tr); 
+                table.append(tr) 
                 
-                
-                // Loop through the JSON data and create table rows
+                // Cicla per tutti i json trovati
                 jsonData.forEach((item) => {
 
+                    // Crea una riga dove mettere i valori del json
                     let tr = document.createElement("tr");
                     
-                    // Get the values of the current object in the JSON data
+                    // Prendi i valori del json selezionato dal ciclo
                     let vals = Object.values(item);
                     
-                    // Loop through the values and create table cells
+                    // Cicla per i valori nel json
                     vals.forEach((elem) => {
                         let td = document.createElement("td");
-                        td.innerText = elem; // Set the value as the text of the table cell
-                        tr.appendChild(td); // Append the table cell to the table row
+                        td.innerText = elem;
+                        // Aggiungi cella alla tabella inserendo all'interno il valore selezionato
+                        // dal ciclo 
+                        tr.appendChild(td); 
                     });
 
+                    // Processo di creazione celle di aggiornamento
                     let td = document.createElement("td");
                     var btn = document.createElement('input');
+
+                    // Crezione bottone aggiornamento
                     btn.type = "button";
                     btn.className = "update-button";
                     btn.value = "";
+                    // Inserimento ID nel bottone: utilizzando una variabile globale che incrementa ogni volta
+                    // che cambiamo json, possiamo far capire al bottone dove si trova e di conseguenza
+                    // prendere i dati dalla propria riga per riempire i campi dell'interfaccia di aggiornamento
                     btn.id = k;
-
-                    btn.onclick = ( function() {    var table = document.getElementById('employees-30k');
-                                                    var result = "";
-                                                    for (var r = +this.id + 2, n = +this.id + 3; r < n; r++) {
-                                                        for (var c = 0, m = table.rows[r].cells.length - 2; c < m; c++) {
-                                                            result = result + (table.rows[r].cells[c].innerHTML) + "|";
+                    btn.onclick = ( function() {    
+                                        // Prendo la tabella sulla quale siamo
+                                        var table = document.getElementById('employees-30k');
+                                        var result = "";
+                                        // e navigo la riga dell'id del bottone per prendere tutti i valori
+                                        for (var r = +this.id + 2, n = +this.id + 3; r < n; r++) {
+                                            for (var c = 0, m = table.rows[r].cells.length - 2; c < m; c++) 
+                                            // Li separo con | per facilitare la speraione dei valori
+                                                result = result + (table.rows[r].cells[c].innerHTML) + "|";
    
-                                                        }
                                                         
-                                                        const myArray = result.split("|");
+                                            // Divido i valori in una lista
+                                            const myArray = result.split("|");
 
-                                                        let x = document.getElementById ("nameU");
-                                                        x.value = myArray[0];
+                                            //Riempo i campi dell'interfaccia di aggiornamento
+                                            let x = document.getElementById ("nameU");
+                                            x.value = myArray[0];
 
-                                                        x = document.getElementById ("surnameU");
-                                                        x.value = myArray[1];
+                                            x = document.getElementById ("surnameU");
+                                            x.value = myArray[1];
 
-                                                        x = document.getElementById ("taxCodeU");
-                                                        x.value = myArray[2];
-                                                        x.disabled = true;
+                                            x = document.getElementById ("taxCodeU");
+                                            x.value = myArray[2];
+                                            // Disabilito l'inut per Codice Fiscale perchè non voglio che si
+                                            // modifichi
+                                            x.disabled = true;
 
-                                                        x = document.getElementById ("birthU");
-                                                        x.value = myArray[3];
+                                            x = document.getElementById ("birthU");
+                                            x.value = myArray[3];
 
-                                                        x = document.getElementById ("salaryU");
-                                                        x.value = myArray[5];
+                                            x = document.getElementById ("salaryU");
+                                            x.value = myArray[5];
                                                         
 
-                                                        if ( myArray[4] == "STAGISTA"){
-                                                            x = document.getElementById ("STAGISTAU");
-                                                            x.checked = true;
-                                                            disableRest();
-                                                        } else if ( myArray[4] == "DIPENDENTE" ){
-                                                            x = document.getElementById ("DIPENDENTEU");
-                                                            x.checked = true;
-                                                            enableAllButStage();
-                                                        } else if ( myArray[4] == "MANAGER" ){
-                                                            x = document.getElementById ("MANAGERU");
-                                                            x.checked = true;
-                                                            enableAllButStage();
-                                                        } else if ( myArray[4] == "DIRETTORE" ){
-                                                            x = document.getElementById ("DIRETTOREU");
-                                                            x.checked = true;
-                                                            enableAllButStage();
-                                                        }
+                                            if ( myArray[4] == "STAGISTA"){
+                                                x = document.getElementById ("STAGISTAU");
+                                                x.checked = true;
+                                                disableRest();
+                                            } else if ( myArray[4] == "DIPENDENTE" ){
+                                                x = document.getElementById ("DIPENDENTEU");
+                                                x.checked = true;
+                                                enableAllButStage();
+                                            } else if ( myArray[4] == "MANAGER" ){
+                                                x = document.getElementById ("MANAGERU");
+                                                x.checked = true;
+                                                enableAllButStage();
+                                            } else if ( myArray[4] == "DIRETTORE" ){
+                                                x = document.getElementById ("DIRETTOREU");
+                                                x.checked = true;
+                                                enableAllButStage();
+                                            }
 
-                                                        if ( myArray[6] == "STAGE"){
-                                                            x = document.getElementById ("STAGEU");
-                                                            x.checked = true;
-                                                        } else if ( myArray[6] == "PARTTIME" ){
-                                                            x = document.getElementById ("PARTTIMEU");
-                                                            x.checked = true;
-                                                        } else if ( myArray[6] == "DETERMINATO" ){
-                                                            x = document.getElementById ("DETERMINATOU");
-                                                            x.checked = true;
-                                                        } else if ( myArray[6] == "INDETERMINATO" ){
-                                                            x = document.getElementById ("INDETERMINATOU");
-                                                            x.checked = true;
-                                                        }
+                                            if ( myArray[6] == "STAGE"){
+                                                x = document.getElementById ("STAGEU");
+                                                x.checked = true;
+                                            } else if ( myArray[6] == "PARTTIME" ){
+                                                x = document.getElementById ("PARTTIMEU");
+                                                x.checked = true;
+                                            } else if ( myArray[6] == "DETERMINATO" ){
+                                                x = document.getElementById ("DETERMINATOU");
+                                                x.checked = true;
+                                            } else if ( myArray[6] == "INDETERMINATO" ){
+                                                x = document.getElementById ("INDETERMINATOU");
+                                                x.checked = true;
+                                            }
 
-                                                        let competences = myArray[7].split(",");
-                                                        for (let step = 0; step < competences.length; step++) {
-                                                            if (competences[step] == "Conosce l'inglese"){
-                                                                let x = document.getElementById("ENGLISHU");
-                                                                x.checked = true;
-                                                            } else if (competences[step] == "Patente B"){
-                                                                let x = document.getElementById("PATENTU");
-                                                                x.checked = true;
-                                                            }else if (competences[step] == "Esperienza Decennale"){
-                                                                let x = document.getElementById("EXPTENU");
-                                                                x.checked = true;
-                                                            }
-                                                        }
+                                            let competences = myArray[7].split(",");
+                                            for (let step = 0; step < competences.length; step++) {
+                                                if (competences[step] == "Conosce l'inglese"){
+                                                    let x = document.getElementById("ENGLISHU");
+                                                    x.checked = true;
+                                                } else if (competences[step] == "Patente B"){
+                                                    let x = document.getElementById("PATENTU");
+                                                    x.checked = true;
+                                                }else if (competences[step] == "Esperienza Decennale"){
+                                                    let x = document.getElementById("EXPTENU");
+                                                    x.checked = true;
+                                                }
+                                            }
 
-                                                        pressUpdateButton();
-                                                    }
-                                                });
+                                            // Ogni bottone su pressione richiamerà pressUpdateButton()
+                                            pressUpdateButton();
+                                        }
+                                    });
+                    // Aggiungo il bottone appena creato nella cella
                     td.appendChild(btn);
                     tr.appendChild(td);
+
+                    // Crezione bottone aggiornamento
                     td = document.createElement("td");
                     btn = document.createElement('input');
                     btn.type = "submit";
                     btn.className = "delete-button";
                     btn.value = "";
+                    // Inserimento ID nel bottone: utilizzando una variabile globale che incrementa ogni volta
+                    // che cambiamo json, possiamo far capire al bottone dove si trova e di conseguenza
+                    // prendere il codice fiscale della propria riga per avviare una cancellazione tramite
+                    // codice fiscale
                     btn.id = k;
-                    btn.onclick = ( function() {    var table = document.getElementById('employees-30k');
-                                                    for (var r = +this.id + 2, n = +this.id + 3; r < n; r++) {
-                                                        for (var c = 2, m = table.rows[r].cells.length - 7; c < m; c++) {
-                                                            const req = new XMLHttpRequest();
-                                                            req.open("DELETE", "http:localhost:8080/employee-controller/delete-employee/" + table.rows[r].cells[c].innerHTML);
+                    btn.onclick = ( function() {
+                                        // Prendo la tabella sulla quale siamo
+                                        var table = document.getElementById('employees-30k');
+                                        // e navigo la riga dell'id del bottone per codice fiscale
+                                        for (var r = +this.id + 2, n = +this.id + 3; r < n; r++) {
+                                            for (var c = 2, m = table.rows[r].cells.length - 7; c < m; c++) {
 
-                                                            req.onload  = function() {
-                                                                var jsonResponse = req.response;
-                                                                convert(jsonResponse);            
-                                                            };
+                                                // Apro una connessione verso l'API di DELETE
+                                                const req = new XMLHttpRequest();
+                                                req.open("DELETE", "http:localhost:8080/employee-controller/delete-employee/" + table.rows[r].cells[c].innerHTML);
 
-                                                            let x = req.send();
+                                                // Mando la richiesta
+                                                req.send();
+                                                
+                                                // L'utente viene avvertito della cancellazione
+                                                alert("Utente cancellato")
 
-                                                            alert("Utente cancellato")
-
-                                                            location.reload()
-                                                            
-                                                        }
-                                                    }
-                                                });
+                                                // Aggiorno la pagina per aggiornare la tabella
+                                                location.reload()
+                                                
+                                                // Ogni bottone di cancellazione avrà questa funzione al
+                                                // suo interno
+                                                }
+                                            }
+                                    });
+                    // Aggiung il bottone di cancellazione nella tabella
                     td.appendChild(btn);
                     tr.appendChild(td);
-                    table.appendChild(tr); // Append the table row to the table
+
+                    // Aggiungo la riga creata alla tabella
+                    table.appendChild(tr); 
+
+                    // Incremento la variabile globale per modificare il prossimo id
                     k++;
                 });
-                container.appendChild(table) // Append the table to the container element
+                // Metti la tabella nel div
+                container.appendChild(table) 
             }
-
+            
             // Funzione chiamata su pressione del bottone AGGIORNA nell'interfaccia di aggiornamento
             function updateEmployee(){
 
